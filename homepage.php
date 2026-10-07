@@ -241,7 +241,7 @@
             <p>
                 Explore everyday health essentials,
                 discover membership benefits and
-                request a pharmacist consultation.
+                request a pharmacist consultation
             </p>
         </div>
 
