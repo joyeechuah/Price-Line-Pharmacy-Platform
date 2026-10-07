@@ -1,0 +1,628 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+}
+
+/* Navigation bar */
+.pharmacy-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+    background-color: #E4F2E9;
+    border-top: 1px solid #C4DECC;
+    border-bottom: 3px solid #246B38;
+}
+
+/* All navigation links */
+.pharmacy-navbar a {
+    display: inline-block;
+    padding: 12px 20px;
+    border: 1px solid #B8CEDA;
+    border-radius: 10px;
+    background-color: white;
+    color: #084B7B;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Hover effect */
+.pharmacy-navbar a:hover {
+    border-color: #084B7B;
+    background-color: #EAF4F8;
+}
+
+/* Highlight the current page */
+.pharmacy-navbar a[aria-current="page"] {
+    border-color: #084B7B;
+    background-color: #084B7B;
+    color: white;
+}
+
+/* E-Consult button */
+.pharmacy-navbar .nav-button {
+    border-color: #246B38;
+    background-color: #246B38;
+    color: white;
+}
+
+.pharmacy-navbar .nav-button:hover {
+    border-color: #1B522B;
+    background-color: #1B522B;
+    color: white;
+}
+
+/* Upload prescription button */
+.pharmacy-navbar .prescription-button {
+    border-color: #084B7B;
+    background-color: white;
+    color: #084B7B;
+}
+
+.pharmacy-navbar .prescription-button:hover {
+    border-color: #084B7B;
+    background-color: #084B7B;
+    color: white;
+}
+
+/* MAIN HEADER */
+.header-hero-section {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) 280px;
+    align-items: center;
+    width: 100%;
+    padding: 32px;
+    background-color: #EAF4F8;
+    border-bottom: 1px solid #C9DFE8;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Logo */
+.header-hero-section .logo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.header-hero-section .logo img {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 0;
+    padding: 8px;
+    border: 1px solid #D5E3E9;
+    border-radius: 16px;
+    background-color: white;
+}
+
+/* Price */
+.header-hero-section h1 {
+    margin: 0;
+    padding: 20px 15px;
+    color: #084B7B;
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* Line */
+.header-hero-section .brand-line {
+    color: #2DA447;
+}
+
+/* Pharmacy */
+.header-hero-section .brand-pharmacy {
+    color: #263F50;
+    font-weight: normal;
+}
+
+.header-hero-section .brand-tagline {
+    display: block;
+    margin-top: 14px;
+    color: #426575;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+
+/* ACCOUNT BUTTONS */
+.header-hero-section .account-links {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.header-hero-section .account-links a {
+    display: inline-block;
+    padding: 15px 24px;
+    border: 2px solid #0B4F7D;
+    border-radius: 30px;
+    background-color: white;
+    color: #0B4F7D;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+}
+
+.header-hero-section .account-links a:hover {
+    background-color: #0B4F7D;
+    color: white;
+}
+
+.header-hero-section .account-links .register-link {
+    background-color: #246B38;
+    border-color: #246B38;
+    color: white;
+}
+
+.header-hero-section .account-links .register-link:hover {
+    background-color: #1B522B;
+    border-color: #1B522B;
+}
+
+button{
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.headbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #E4F2E9;
+}
+
+/* Keep your existing desktop banner proportions */
+#pharmacyCarousel {
+    width: 100%;
+    max-width: 1270px;
+    background-color: #EAF4F8;
+}
+
+#pharmacyCarousel .carousel-item {
+    aspect-ratio: 1270 / 474;
+}
+
+#pharmacyCarousel .carousel-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Override your general button padding */
+#pharmacyCarousel .carousel-control-prev,
+#pharmacyCarousel .carousel-control-next {
+    width: 8%;
+    padding: 0;
+    border-radius: 0;
+    opacity: 1;
+}
+
+/* Make arrows visible over light images */
+#pharmacyCarousel .carousel-control-prev-icon,
+#pharmacyCarousel .carousel-control-next-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #0B4F7D;
+    background-size: 55%;
+}
+
+#pharmacyCarousel .carousel-control-prev:focus-visible,
+#pharmacyCarousel .carousel-control-next:focus-visible {
+    outline: 3px solid #0B4F7D;
+    outline-offset: -3px;
+}
+
+.search-form {
+    width: 90%;
+    max-width: 650px;
+    margin: 30px auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.search-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: #0B4F7D;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.search-bar {
+    display: flex;
+    border: 2px solid #0B4F7D;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.search-bar input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.search-bar button {
+    padding: 15px 24px;
+    border: none;
+    border-radius: 0;
+    background-color: #0B4F7D;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #083B5E;
+}
+
+.search-bar:focus-within {
+    outline: 2px solid #0B4F7D;
+    outline-offset: 3px;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.search-bar button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: -5px;
+}
+
+.header-hero-section {
+    position: relative;
+}
+
+.account-links a:focus-visible {
+    outline: 3px solid #0B4F7D;
+    outline-offset: 3px;
+}
+
+.hot-items-heading {
+    margin: 35px 0 20px;
+    color: #0B4F7D;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+}
+
+.hot-items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.hot-items-heading{
+    padding: 18px;
+    margin: 0;
+}
+
+.product-card {
+    padding: 20px;
+    border: 1px solid #d5e3e9;
+    border-radius: 10px;
+    background-color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card .product-link {
+    margin-top: 0;
+    align-self: center;
+}
+
+.section-2 .product-card img , .section-3 .product-card img, .section-4 .product-card img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    margin: 0 auto 15px;
+    object-fit: contain;
+}
+
+.product-card h4 {
+    margin: 10px 0;
+    color: #0B4F7D;
+    font-size: 18px;
+}
+
+.product-card .product-price {
+    margin-top: auto;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    color: #246B38;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.product-link {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    background-color: #0B4F7D;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.product-link:hover {
+    background-color: #083B5E;
+}
+
+.product-link:focus-visible {
+    outline: 3px solid #0B4F7D;
+    outline-offset: 4px;
+}
+
+/* Description and search section */
+.hero-content {
+    width: 100%;
+    max-width: 1270px;
+    padding: 35px 30px;
+    background: linear-gradient(135deg, #EAF4F8, #F2FAF4);
+    border-bottom: 1px solid #D5E5EB;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hero-content h2 {
+    max-width: 900px;
+    margin: 0 auto 25px;
+    color: #0B4F7D;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.hero-content .search-form {
+    margin: 0 auto;
+}
+
+.hero-content .search-bar {
+    box-shadow: 0 5px 16px rgba(11, 79, 125, 0.12);
+}
+
+/* Category section */
+.section-2, .section-3, .section-4 {
+    width: 100%;
+    max-width: 1270px;
+    padding: 35px 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.section-2 > h2 , .section-3 > h2 , .section-4 > h2 {
+    margin: 0 0 15px;
+    padding-left: 15px;
+    border-left: 5px solid #299447;
+    color: #0B4F7D;
+    font-size: 28px;
+    line-height: 1.3;
+}
+
+.section-2 > p , .section-3 > p , .section-4 > p{
+    max-width: 850px;
+    margin: 0 0 25px;
+    color: #4B606C;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Category banner only */
+.section-2 > img , .section-3 > img , .section-4 > img{
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(11, 79, 125, 0.1);
+}
+
+/* Hot Items heading */
+.section-2 .hot-items-heading , .section-3 .hot-items-heading , .section-4 .hot-items-heading {
+    margin: 30px 0 20px;
+    padding: 12px 16px;
+    border-left: 5px solid #299447;
+    border-radius: 4px;
+    background-color: #E4F2E9;
+    color: #0B4F7D;
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+#pharmacyCarousel,
+.hero-content,
+.section-2,
+.section-3,
+.section-4 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* HOMEPAGE FOOTER */
+.home-footer {
+    margin-top: 30px;
+    padding: 40px 30px 20px;
+    border-top: 5px solid #2DA447;
+    background-color: #083B5E;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Three columns */
+.home-footer .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Pharmacy introduction */
+.home-footer .footer-brand h2 {
+    margin: 0 0 14px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.home-footer .footer-brand h2 span {
+    color: #8DDD9D;
+}
+
+.home-footer .footer-brand p {
+    max-width: 420px;
+    margin: 0 0 14px;
+    color: #D8E8F1;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Link headings */
+.home-footer .footer-links h3 {
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8DDD9D;
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+/* Footer navigation links */
+.home-footer .footer-links a {
+    display: block;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    color: #D8E8F1;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.home-footer .footer-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Copyright and back-to-top row */
+.home-footer .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #52768C;
+}
+
+.home-footer .footer-bottom p {
+    margin: 0;
+    color: #D8E8F1;
+    font-size: 14px;
+}
+
+.home-footer .footer-bottom a {
+    padding: 10px 16px;
+    border: 1px solid #B8D7E8;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.home-footer .footer-bottom a:hover {
+    background-color: white;
+    color: #083B5E;
+}
+
+/* Header on tablets and smaller screens */
+@media (max-width: 1000px) {
+    .header-hero-section {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 28px 18px;
+    }
+
+    .header-hero-section .logo,
+    .header-hero-section .account-links {
+        justify-content: center;
+    }
+
+    .header-hero-section .account-links {
+        flex-wrap: wrap;
+    }
+
+    .header-hero-section .logo img {
+        width: 120px;
+    }
+
+    .header-hero-section h1 {
+        padding: 0;
+        font-size: 30px;
+    }
+
+    .header-hero-section .brand-tagline {
+        font-size: 16px;
+    }
+}
+
+/* Phones */
+@media (max-width: 700px) {
+    .pharmacy-navbar {
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .pharmacy-navbar a {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+
+    .hot-items {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content,
+    .section-2,
+    .section-3,
+    .section-4 {
+        padding: 25px 18px;
+    }
+
+    .home-footer {
+        padding: 30px 20px 20px;
+    }
+
+    .home-footer .footer-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .home-footer .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}

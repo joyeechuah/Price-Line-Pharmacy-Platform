@@ -1,0 +1,259 @@
+body{
+    margin: 0;
+}
+
+.membership-page {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #263F4D;
+    line-height: 1.6;
+}
+
+.membership-page main {
+    width: 100%;
+    max-width: 1270px;
+}
+
+.membership-intro {
+    padding: 65px 30px;
+    background: linear-gradient(135deg, #EAF4F8, #E4F2E9);
+    text-align: center;
+}
+
+.membership-label {
+    margin: 0 0 15px;
+    color: #246B38;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.membership-intro h1 {
+    display: block;
+    margin: 0 0 20px;
+    color: #0B4F7D;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.2;
+}
+
+.membership-intro > p:not(.membership-label) {
+    max-width: 650px;
+    margin: 0 auto 25px;
+}
+
+.membership-button {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background-color: #0B4F7D;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.membership-button:hover {
+    background-color: #083B5E;
+}
+
+.membership-page a:focus-visible {
+    outline: 3px solid #8A4B00;
+    outline-offset: 4px;
+}
+
+.membership-intro .membership-login {
+    margin-top: 18px;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.membership-login a,
+.membership-footer a {
+    color: #0B4F7D;
+}
+
+.membership-login{
+    padding-top: 12px;
+}
+
+.membership-benefits,
+.membership-steps {
+    padding: 45px 30px;
+}
+
+.membership-page main h2 {
+    margin: 0 0 28px;
+    color: #0B4F7D;
+    font-size: 28px;
+    text-align: center;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.benefit-card {
+    padding: 28px;
+    border: 1px solid #D5E3E9;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 5px 18px rgba(11, 79, 125, 0.06);
+}
+
+.benefit-number {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: #E4F2E9;
+    color: #246B38;
+    font-weight: bold;
+}
+
+.benefit-card h3 {
+    margin: 0 0 12px;
+    color: #0B4F7D;
+    font-size: 21px;
+}
+
+.benefit-card p {
+    margin: 0;
+}
+
+.membership-steps {
+    background-color: #F3F8FA;
+    text-align: center;
+}
+
+.membership-steps ol {
+    max-width: 500px;
+    margin: 0 auto 28px;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.membership-steps li {
+    margin-bottom: 12px;
+}
+
+.membership-footer {
+    max-width: 1270px;
+    padding: 25px;
+    background-color: #E4F2E9;
+    text-align: center;
+}
+
+.membership-footer p {
+    margin: 0 0 8px;
+}
+
+/* HOMEPAGE FOOTER */
+.home-footer {
+    margin-top: 30px;
+    padding: 40px 30px 20px;
+    border-top: 5px solid #2DA447;
+    background-color: #083B5E;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Three columns */
+.home-footer .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Pharmacy introduction */
+.home-footer .footer-brand h2 {
+    margin: 0 0 14px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.home-footer .footer-brand h2 span {
+    color: #8DDD9D;
+}
+
+.home-footer .footer-brand p {
+    max-width: 420px;
+    margin: 0 0 14px;
+    color: #D8E8F1;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Link headings */
+.home-footer .footer-links h3 {
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8DDD9D;
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+/* Footer navigation links */
+.home-footer .footer-links a {
+    display: block;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    color: #D8E8F1;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.home-footer .footer-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Copyright and back-to-top row */
+.home-footer .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #52768C;
+}
+
+.home-footer .footer-bottom p {
+    margin: 0;
+    color: #D8E8F1;
+    font-size: 14px;
+}
+
+.home-footer .footer-bottom a {
+    padding: 10px 16px;
+    border: 1px solid #B8D7E8;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.home-footer .footer-bottom a:hover {
+    background-color: white;
+    color: #083B5E;
+}
+
+@media (max-width: 700px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .membership-intro {
+        padding: 40px 20px;
+    }
+
+    .membership-benefits,
+    .membership-steps {
+        padding: 30px 20px;
+    }
+}
