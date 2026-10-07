@@ -147,10 +147,10 @@ Authentication checks whether someone is logged in, while role checks control ac
 ---
 ---
 
-## Day 5 — Date: ____
+## Day 5 — Date: 6/10/2026
 
 ### What I planned to do today
-
+Rearrange the 1 style.css file to different seperated CSS files. Start with products.php
 
 ### What I actually did
 
