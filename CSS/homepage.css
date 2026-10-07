@@ -10,49 +10,47 @@ body {
     margin: 0;
 }
 
-/* Navigation bar */
+/* Compact navigation bar */
 .pharmacy-navbar {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 14px;
-    padding: 20px 24px;
+    gap: 10px;
+    padding: 10px 15px;
     background-color: #E4F2E9;
-    border-top: 1px solid #C4DECC;
     border-bottom: 3px solid #246B38;
 }
 
-/* All navigation links */
+/* Navigation links */
 .pharmacy-navbar a {
     display: inline-block;
-    padding: 12px 20px;
+    padding: 8px 12px;
     border: 1px solid #B8CEDA;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: white;
     color: #084B7B;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     line-height: 1.4;
     text-align: center;
     text-decoration: none;
 }
 
-/* Hover effect */
 .pharmacy-navbar a:hover {
     border-color: #084B7B;
     background-color: #EAF4F8;
 }
 
-/* Highlight the current page */
+/* Current page */
 .pharmacy-navbar a[aria-current="page"] {
     border-color: #084B7B;
     background-color: #084B7B;
     color: white;
 }
 
-/* E-Consult button */
+/* E-Consult */
 .pharmacy-navbar .nav-button {
     border-color: #246B38;
     background-color: #246B38;
@@ -65,7 +63,7 @@ body {
     color: white;
 }
 
-/* Upload prescription button */
+/* Upload e-Prescription */
 .pharmacy-navbar .prescription-button {
     border-color: #084B7B;
     background-color: white;
@@ -73,9 +71,46 @@ body {
 }
 
 .pharmacy-navbar .prescription-button:hover {
-    border-color: #084B7B;
     background-color: #084B7B;
     color: white;
+}
+
+/* Account links now sit inside the navbar */
+.pharmacy-navbar .account-links {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.pharmacy-navbar .account-links a {
+    padding: 8px 12px;
+    border: 1px solid #084B7B;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.pharmacy-navbar .account-links .register-link {
+    border-color: #246B38;
+    background-color: #246B38;
+    color: white;
+}
+
+.pharmacy-navbar .account-links .register-link:hover {
+    border-color: #1B522B;
+    background-color: #1B522B;
+}
+
+/* Account links on a separate row when space is limited */
+@media (max-width: 900px) {
+    .pharmacy-navbar .account-links {
+        width: 100%;
+        margin-left: 0;
+    }
 }
 
 /* MAIN HEADER */

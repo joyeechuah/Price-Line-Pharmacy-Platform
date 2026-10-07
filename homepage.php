@@ -21,6 +21,10 @@
         <a href="membership-benefits.php">Membership Benefits</a>
         <a href="prescription.php" class="nav-button prescription-button">Upload e-Prescription</a>
         <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
+        <div class="account-links">
+       <a href="login.php">Log In</a>
+       <a href="register.php" class="register-link">Register</a>
+       </div>
     </div>
     </nav>
     <header class="header">
@@ -36,10 +40,6 @@
         Your Health, Delivered Fast and Safe.
     </span>
     </h1>
-    <div class="account-links">
-       <a href="login.php">Log In</a>
-       <a href="register.php" class="register-link">Register</a>
-    </div>
     </div>
     <div id="pharmacyCarousel"
      class="carousel slide right-header"
