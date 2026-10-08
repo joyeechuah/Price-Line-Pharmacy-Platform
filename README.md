@@ -153,7 +153,7 @@ Authentication checks whether someone is logged in, while role checks control ac
 Rearrange the 1 style.css file to different seperated CSS files. Start with products.php
 
 ### What I actually did
-
+Rearranged css files
 
 ### Blockers / Challenges
 
@@ -163,13 +163,13 @@ Rearrange the 1 style.css file to different seperated CSS files. Start with prod
 
 ---
 
-## Day 6 — Date: ____
+## Day 6 — Date: 7/10/2026
 
 ### What I planned to do today
-
+Work on the admin pages especially admin/products.php 
 
 ### What I actually did
-
+Completed admin/products.php
 
 ### Blockers / Challenges
 
@@ -179,10 +179,10 @@ Rearrange the 1 style.css file to different seperated CSS files. Start with prod
 
 ---
 
-## Day 7 — Date: ____
+## Day 7 — Date: 8/10/2026
 
 ### What I planned to do today
-
+Try completing all admin pages and start working customers, pharmacists and storekeeper pages.
 
 ### What I actually did
 
