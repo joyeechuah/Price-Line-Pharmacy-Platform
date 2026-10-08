@@ -185,13 +185,23 @@ Completed admin/products.php
 Try completing all admin pages and start working with customers, pharmacists pages.
 
 ### What I actually did
-
+Added sample staff accounts and products to the database.
+Worked on the admin Users page to display registered accounts and create staff accounts.
+Worked on the admin Orders page to display customer details, purchased items, and order totals.
+Kept the storekeeper role after deleting its separate folder. Updated login redirects and allowed storekeepers to access the shared product-management page.
+Improved the homepage by moving the logo into the navbar and adjusting its size, padding, and spacing.
+Adjusted the hero banners and checked how the search bar could connect to the customer products page.
+Customer and pharmacist pages still need further development.
 
 ### Blockers / Challenges
-
+Finding a suitable logo size while keeping the navbar compact required several adjustments.
+Different banner proportions created unwanted gaps inside the carousel.
+The search bar could not display results because the customer products page was still empty.
 
 ### What I learned
-
+Login redirects and access checks must work together for each user role.
+CSS padding, margins, and gaps control spacing in different ways.
+A broken-image icon usually indicates a loading or path problem, rather than an image being too large.
 
 ---
 
