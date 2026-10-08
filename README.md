@@ -22,7 +22,7 @@ Customers often need to visit a pharmacy in person to buy everyday medicines and
 
 - **Frontend: HTML CSS JavaScript
 - **Backend: PHP
-- **Database: SQL
+- **Database: MySQL
 - **Other:**
 
 ---
