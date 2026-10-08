@@ -182,7 +182,7 @@ Completed admin/products.php
 ## Day 7 — Date: 8/10/2026
 
 ### What I planned to do today
-Try completing all admin pages and start working customers, pharmacists and storekeeper pages.
+Try completing all admin pages and start working with customers, pharmacists pages.
 
 ### What I actually did
 
