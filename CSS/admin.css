@@ -1,59 +1,109 @@
-/* Product form and actions. Existing page styles stay in style.css. */
+/* Shared form styles for admin pages. Keep style.css linked first. */
 .admin-nav {
     align-items: center;
 }
-.admin-products .admin-form-card {
+
+.admin-page .admin-form-card {
     margin: 25px 0;
 }
-.admin-products .admin-form label {
+
+.admin-page .admin-form label {
     display: block;
     margin-bottom: 6px;
     font-weight: bold;
     color: #0B4F7D;
 }
-.admin-products .admin-form input:not([type="hidden"]),
-.admin-products .admin-form textarea {
+
+.admin-page .admin-form input:not([type="hidden"]),
+.admin-page .admin-form textarea,
+.admin-page .admin-form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 16px;
     border: 1px solid #71838F;
     border-radius: 6px;
-    font: inherit;
+    font-family: inherit;
+    font-size: 16px;
     box-sizing: border-box;
 }
-.admin-products .admin-form textarea {
+
+.admin-page .admin-form textarea {
     resize: vertical;
 }
-.admin-products .admin-form button,
-.admin-products .admin-edit-link,
-.admin-products .product-delete-button {
+
+.admin-page .admin-form button,
+.admin-page .admin-edit-link,
+.admin-page .product-delete-button {
     display: inline-block;
     padding: 10px 18px;
     border: none;
     border-radius: 6px;
     background-color: #0B4F7D;
     color: white;
-    font: inherit;
+    font-family: inherit;
+    font-size: 16px;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
 }
-.admin-products .admin-form button:hover,
-.admin-products .admin-edit-link:hover {
+
+.admin-page .admin-form button:hover,
+.admin-page .admin-edit-link:hover {
     background-color: #083B5E;
 }
-.admin-products .product-actions {
+
+.admin-page .product-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
 }
-.admin-products .product-actions form {
+
+.admin-page .product-actions form {
     margin: 0;
 }
-.admin-products .product-delete-button {
+
+.admin-page .product-delete-button {
     background-color: #A12622;
 }
-.admin-products .product-delete-button:hover {
+
+.admin-page .product-delete-button:hover {
     background-color: #7D1D1A;
+}
+
+.admin-page .form-help {
+    margin: 0 0 18px;
+    font-size: 14px;
+    color: #426575;
+}
+
+/* Purchased items inside an order card. */
+.admin-orders .order-items {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.admin-orders .order-items li {
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 1px solid #D5E3E9;
+    border-radius: 6px;
+    background-color: #F5F8FA;
+}
+
+.admin-orders .order-items p {
+    margin: 0 0 6px;
+}
+
+.admin-orders .order-items p:last-child {
+    margin-bottom: 0;
+}
+
+.admin-orders .order-total {
+    padding-top: 15px;
+    border-top: 1px solid #D5E3E9;
+    color: #246B38;
+    font-size: 20px;
+    font-weight: bold;
 }

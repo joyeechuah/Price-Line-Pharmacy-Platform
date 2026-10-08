@@ -14,8 +14,11 @@
     <link rel="stylesheet" href="CSS/homepage.css">
 </head>
 <body id="page-top">
-    <nav class="headbar">
+    <nav class="headbar" aria-label="Main navigation">
     <div class="pharmacy-navbar">
+        <a href="homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
+            <img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
+        </a>
         <a href="homepage.php" aria-current="page">Home</a>
         <a href="customer/products.php">Products</a>
         <a href="membership-benefits.php">Membership Benefits</a>
@@ -29,9 +32,6 @@
     </nav>
     <header class="header">
     <div class="header-hero-section">
-    <a href="homepage.php" class="logo">
-    <img src="images/Price Line Pharmacy logo.png" alt="Price Line Pharmacy logo" width="150px" height="150px">
-    </a>
     <h1 class="brand-heading">
     Price <span class="brand-line">Line</span>
     <span class="brand-pharmacy">Pharmacy</span>
@@ -60,7 +60,7 @@
         <!-- Second banner -->
         <div class="carousel-item">
             <img
-                src="images/HOT ITEMS pharmacy banner 2.png"
+                src="images/HOT ITEMS pharmacy banner.png"
                 alt="Explore our vitamins and supplements"
             >
         </div>
@@ -94,7 +94,7 @@
     Order prescription refills online, chat with a licensed pharmacist,
     and get your medications delivered right to your door.
     </h2>
-    <form action="products.php" method="GET" role="search" class="search-form">
+    <form action="customer/products.php" method="GET" role="search" class="search-form">
     <label for="site-search">Search Products</label>
     <div class="search-bar">
         <input
@@ -111,7 +111,7 @@
     <section class="section-2">
         <h2>Vitamins & Supplements</h2>
         <p>Tailored nutrition for every body. Browse our pharmacist-approved supplements to support your family's health at every stage of life.</p>
-        <img src="images/vitamins&supplements.png" alt="vitamins&supplements">
+        <img src="images/Vitamins&Supplements.png" alt="vitamins&supplements">
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
@@ -193,7 +193,7 @@
     <section class="section-4">
         <h2>Medical Supplies</h2>
         <p>Find reliable medical supplies for everyday health needs, from first-aid essentials to home healthcare products—conveniently available in one place.</p>
-        <img src="images\medical supplies.png" alt="Medical Supplies">
+        <img src="images/Medical Supplies.png" alt="Medical Supplies">
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">

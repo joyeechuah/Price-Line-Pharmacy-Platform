@@ -1,7 +1,9 @@
 <?php
-// 1. Check login and allow admins only.
+// 1. Check login and allow admins and storekeepers.
 require_once __DIR__ . '/../includes/auth.php';
-if (($_SESSION['user']['role'] ?? '') !== 'admin') {
+$role = $_SESSION['user']['role'] ?? '';
+
+if ($role !== 'admin' && $role !== 'storekeeper') {
     http_response_code(403);
     exit('Access denied.');
 }
@@ -181,14 +183,18 @@ unset($_SESSION['products_message']);
 <body class="admin-page">
     <header class="admin-header">
         <h1>Price Line Pharmacy</h1>
-        <p>Admin Panel</p>
+        <p><?php echo $role === 'admin' ? 'Admin Panel' : 'Storekeeper Panel'; ?></p>
     </header>
     <nav class="admin-nav" aria-label="Admin navigation">
-        <a href="dashboard.php">Dashboard</a>
-        <a href="users.php">Users</a>
+        <?php if ($role === 'admin'): ?>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="users.php">Users</a>
+        <?php endif; ?>
         <a href="products.php" aria-current="page">Products</a>
-        <a href="orders.php">Orders</a>
-        <a href="consultation.php">Consultations</a>
+        <?php if ($role === 'admin'): ?>
+            <a href="orders.php">Orders</a>
+            <a href="consultation.php">Consultations</a>
+        <?php endif; ?>
         <form action="../logout.php" method="POST">
             <input type="hidden" name="csrf_token" value="<?php echo escape($_SESSION['csrf_token']); ?>">
             <button type="submit" class="logout-button">Log Out</button>

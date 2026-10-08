@@ -14,18 +14,18 @@ body {
 .pharmacy-navbar {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
+    gap: 6px;
+    padding: 4px 12px;
     background-color: #E4F2E9;
-    border-bottom: 3px solid #246B38;
+    border-bottom: 2px solid #246B38;
 }
 
 /* Navigation links */
 .pharmacy-navbar a {
     display: inline-block;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px solid #B8CEDA;
     border-radius: 8px;
     background-color: white;
@@ -41,6 +41,26 @@ body {
 .pharmacy-navbar a:hover {
     border-color: #084B7B;
     background-color: #EAF4F8;
+}
+
+/* Small logo on the same row as the navigation links */
+.pharmacy-navbar .navbar-logo {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    flex-shrink: 0;
+    margin-right: 12px;
+}
+
+.pharmacy-navbar .navbar-logo:hover {
+    background-color: transparent;
+}
+
+.pharmacy-navbar .navbar-logo img {
+    display: block;
+    width: 66px;
+    height: 66px;
+    border-radius: 8px;
 }
 
 /* Current page */
@@ -82,12 +102,12 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     margin-left: auto;
 }
 
 .pharmacy-navbar .account-links a {
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: 1px solid #084B7B;
     border-radius: 8px;
     font-size: 15px;
@@ -115,37 +135,17 @@ body {
 
 /* MAIN HEADER */
 .header-hero-section {
-    display: grid;
-    grid-template-columns: 280px minmax(0, 1fr) 280px;
-    align-items: center;
     width: 100%;
-    padding: 32px;
+    padding: 28px 20px;
     background-color: #EAF4F8;
     border-bottom: 1px solid #C9DFE8;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Logo */
-.header-hero-section .logo {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.header-hero-section .logo img {
-    display: block;
-    width: 150px;
-    height: auto;
-    margin: 0;
-    padding: 8px;
-    border: 1px solid #D5E3E9;
-    border-radius: 16px;
-    background-color: white;
-}
-
 /* Price */
 .header-hero-section h1 {
     margin: 0;
-    padding: 20px 15px;
+    padding: 0;
     color: #084B7B;
     font-size: 38px;
     font-weight: bold;
@@ -174,44 +174,6 @@ body {
 }
 
 
-/* ACCOUNT BUTTONS */
-.header-hero-section .account-links {
-    position: static;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.header-hero-section .account-links a {
-    display: inline-block;
-    padding: 15px 24px;
-    border: 2px solid #0B4F7D;
-    border-radius: 30px;
-    background-color: white;
-    color: #0B4F7D;
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1.4;
-    text-align: center;
-    text-decoration: none;
-}
-
-.header-hero-section .account-links a:hover {
-    background-color: #0B4F7D;
-    color: white;
-}
-
-.header-hero-section .account-links .register-link {
-    background-color: #246B38;
-    border-color: #246B38;
-    color: white;
-}
-
-.header-hero-section .account-links .register-link:hover {
-    background-color: #1B522B;
-    border-color: #1B522B;
-}
-
 button{
     padding: 10px;
     border-radius: 8px;
@@ -225,22 +187,17 @@ button{
     background-color: #E4F2E9;
 }
 
-/* Keep your existing desktop banner proportions */
+/* Let each banner keep its original proportions. */
 #pharmacyCarousel {
     width: 100%;
     max-width: 1270px;
     background-color: #EAF4F8;
 }
 
-#pharmacyCarousel .carousel-item {
-    aspect-ratio: 1270 / 474;
-}
-
 #pharmacyCarousel .carousel-item img {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: auto;
 }
 
 /* Override your general button padding */
@@ -327,10 +284,6 @@ button{
 .search-bar button:focus-visible {
     outline: 2px solid white;
     outline-offset: -5px;
-}
-
-.header-hero-section {
-    position: relative;
 }
 
 .account-links a:focus-visible {
@@ -596,22 +549,7 @@ button{
 /* Header on tablets and smaller screens */
 @media (max-width: 1000px) {
     .header-hero-section {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 28px 18px;
-    }
-
-    .header-hero-section .logo,
-    .header-hero-section .account-links {
-        justify-content: center;
-    }
-
-    .header-hero-section .account-links {
-        flex-wrap: wrap;
-    }
-
-    .header-hero-section .logo img {
-        width: 120px;
+        padding: 24px 18px;
     }
 
     .header-hero-section h1 {
@@ -627,13 +565,7 @@ button{
 /* Phones */
 @media (max-width: 700px) {
     .pharmacy-navbar {
-        gap: 10px;
-        padding: 14px;
-    }
-
-    .pharmacy-navbar a {
-        padding: 10px 14px;
-        font-size: 15px;
+        padding: 6px 10px;
     }
 
     .hot-items {

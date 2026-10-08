@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     break;
 
                 case 'storekeeper':
-                    header('Location: storekeeper/dashboard.php');
+                    header('Location: admin/products.php');
                     break;
 
                 default:
