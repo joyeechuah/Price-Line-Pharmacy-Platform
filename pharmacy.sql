@@ -70,3 +70,94 @@ CREATE TABLE order_items (
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+
+-- All three demo staff accounts use the password: Pharmacy123!
+
+USE price_line_pharmacy_dev;
+
+START TRANSACTION;
+
+INSERT INTO users (name, email, password_hash, role)
+VALUES
+    (
+        'Demo Admin',
+        'admin.demo@example.com',
+        '$2y$10$0gkwnVp3vGxf757vDuujReMaaCW6jfz3a5xifCZkJhJMR9.qwm8o2',
+        'admin'
+    ),
+    (
+        'Demo Pharmacist',
+        'pharmacist.demo@example.com',
+        '$2y$10$0gkwnVp3vGxf757vDuujReMaaCW6jfz3a5xifCZkJhJMR9.qwm8o2',
+        'pharmacist'
+    ),
+    (
+        'Demo Storekeeper',
+        'storekeeper.demo@example.com',
+        '$2y$10$0gkwnVp3vGxf757vDuujReMaaCW6jfz3a5xifCZkJhJMR9.qwm8o2',
+        'storekeeper'
+    );
+
+INSERT INTO products (name, description, category, price, stock, image_url)
+VALUES
+    (
+        'Demo Vitamin C',
+        'Sample vitamin product for testing the catalogue.',
+        'Vitamins and Supplements',
+        48.00,
+        30,
+        'images/flavettes vitamin c.jpg'
+    ),
+    (
+        'Demo Fish Oil',
+        'Sample supplement product for testing the catalogue.',
+        'Vitamins and Supplements',
+        89.00,
+        20,
+        'images/fish oil.jpg'
+    ),
+    (
+        'Demo Moisturising Cream',
+        'Sample skincare product for testing the catalogue.',
+        'Skincare',
+        65.00,
+        15,
+        'images/cerave moisturizing cream.jpg'
+    ),
+    (
+        'Demo Hand Sanitizer',
+        'Sample personal care product for testing the catalogue.',
+        'Medical Supplies',
+        11.50,
+        40,
+        'images/Dettol hand sanitizer 2 in 1.jpg'
+    ),
+    (
+        'Demo Plasters',
+        'Sample first aid product for testing the catalogue.',
+        'Medical Supplies',
+        15.00,
+        25,
+        'images/hansaplast plaster.jpg'
+    );
+
+COMMIT;
+
+SELECT user_id, name, email, role
+FROM users
+WHERE email IN (
+    'admin.demo@example.com',
+    'pharmacist.demo@example.com',
+    'storekeeper.demo@example.com'
+);
+
+SELECT product_id, name, category, price, stock, image_url
+FROM products
+WHERE name IN (
+    'Demo Vitamin C',
+    'Demo Fish Oil',
+    'Demo Moisturising Cream',
+    'Demo Hand Sanitizer',
+    'Demo Plasters'
+);
+
