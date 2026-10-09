@@ -205,10 +205,10 @@ A broken-image icon usually indicates a loading or path problem, rather than an 
 
 ---
 
-## Day 8 — Date: ____
+## Day 8 — Date: 9/10/2026
 
 ### What I planned to do today
-
+Start working with customer-access pages
 
 ### What I actually did
 
