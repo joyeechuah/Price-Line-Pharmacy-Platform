@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240">
+  <rect width="320" height="240" rx="12" fill="#EAF4F8"/>
+  <rect x="128" y="55" width="64" height="74" rx="8" fill="#FFFFFF" stroke="#B8CEDA" stroke-width="2"/>
+  <path d="M160 72v40M140 92h40" stroke="#246B38" stroke-width="8"/>
+  <text x="160" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#426575">Product image</text>
+</svg>

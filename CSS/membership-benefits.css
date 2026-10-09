@@ -5,7 +5,6 @@ body{
 .membership-page {
     font-family: Arial, Helvetica, sans-serif;
     color: #263F4D;
-    line-height: 1.6;
 }
 
 .membership-page main {
@@ -32,7 +31,6 @@ body{
     margin: 0 0 20px;
     color: #0B4F7D;
     font-size: clamp(28px, 4vw, 42px);
-    line-height: 1.2;
 }
 
 .membership-intro > p:not(.membership-label) {
@@ -183,7 +181,6 @@ body{
     margin: 0 0 14px;
     color: #D8E8F1;
     font-size: 16px;
-    line-height: 1.7;
 }
 
 /* Link headings */
