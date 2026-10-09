@@ -82,7 +82,7 @@ try {
 
     <title>Consultation Requests | Price Line Pharmacy</title>
 
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../CSS/admin.css">
 </head>
 
 <body class="admin-page">

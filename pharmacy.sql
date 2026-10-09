@@ -71,28 +71,26 @@ CREATE TABLE order_items (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
--- All three demo staff accounts use the password: Pharmacy123!
-
-USE price_line_pharmacy_dev;
+-- All three staff accounts use the password: Pharmacy123!
 
 START TRANSACTION;
 
 INSERT INTO users (name, email, password_hash, role)
 VALUES
     (
-        'Demo Admin',
+        'Admin',
         'admin.demo@example.com',
         '$2y$10$0gkwnVp3vGxf757vDuujReMaaCW6jfz3a5xifCZkJhJMR9.qwm8o2',
         'admin'
     ),
     (
-        'Demo Pharmacist',
+        'Pharmacist',
         'pharmacist.demo@example.com',
         '$2y$10$0gkwnVp3vGxf757vDuujReMaaCW6jfz3a5xifCZkJhJMR9.qwm8o2',
         'pharmacist'
     ),
     (
-        'Demo Storekeeper',
+        'Storekeeper',
         'storekeeper.demo@example.com',
         '$2y$10$0gkwnVp3vGxf757vDuujReMaaCW6jfz3a5xifCZkJhJMR9.qwm8o2',
         'storekeeper'
@@ -101,7 +99,7 @@ VALUES
 INSERT INTO products (name, description, category, price, stock, image_url)
 VALUES
     (
-        'Demo Vitamin C',
+        'Vitamin C',
         'Sample vitamin product for testing the catalogue.',
         'Vitamins and Supplements',
         48.00,
@@ -109,7 +107,7 @@ VALUES
         'images/flavettes vitamin c.jpg'
     ),
     (
-        'Demo Fish Oil',
+        'Fish Oil',
         'Sample supplement product for testing the catalogue.',
         'Vitamins and Supplements',
         89.00,
@@ -117,7 +115,7 @@ VALUES
         'images/fish oil.jpg'
     ),
     (
-        'Demo Moisturising Cream',
+        'Moisturising Cream',
         'Sample skincare product for testing the catalogue.',
         'Skincare',
         65.00,
@@ -125,7 +123,7 @@ VALUES
         'images/cerave moisturizing cream.jpg'
     ),
     (
-        'Demo Hand Sanitizer',
+        'Hand Sanitizer',
         'Sample personal care product for testing the catalogue.',
         'Medical Supplies',
         11.50,
@@ -133,7 +131,7 @@ VALUES
         'images/Dettol hand sanitizer 2 in 1.jpg'
     ),
     (
-        'Demo Plasters',
+        'Plasters',
         'Sample first aid product for testing the catalogue.',
         'Medical Supplies',
         15.00,
@@ -154,10 +152,9 @@ WHERE email IN (
 SELECT product_id, name, category, price, stock, image_url
 FROM products
 WHERE name IN (
-    'Demo Vitamin C',
-    'Demo Fish Oil',
-    'Demo Moisturising Cream',
-    'Demo Hand Sanitizer',
-    'Demo Plasters'
+    'Vitamin C',
+    'Fish Oil',
+    'Moisturising Cream',
+    'Hand Sanitizer',
+    'Plasters'
 );
-

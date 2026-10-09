@@ -1,0 +1,319 @@
+/* Login, registration and customer footer styles */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+}
+
+/* Login page */
+.login-page {
+    margin: 0;
+    min-height: 100vh;
+    padding: 30px 20px;
+    background-color: #EAF4F8;
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border: 1px solid #D5E3E9;
+    border-radius: 12px;
+    background-color: white;
+    text-align: center;
+}
+
+.login-logo {
+    display: block;
+    width: 120px;
+    height: auto;
+    margin: 0 auto 20px;
+}
+
+.login-box h1 {
+    display: block;
+    margin: 0 0 10px;
+    font-size: 28px;
+    color: #0B4F7D;
+}
+
+.login-box p {
+    color: #426575;
+    line-height: 1.5;
+}
+
+.login-box form {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.login-box label {
+    display: block;
+    margin-bottom: 8px;
+    color: #0B4F7D;
+    font-weight: bold;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #71838F;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0B4F7D;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #083B5E;
+}
+
+.login-box a {
+    color: #246B38;
+}
+
+.login-register {
+    margin-top: 25px;
+}
+
+.login-box input:focus-visible,
+.login-box button:focus-visible,
+.login-box a:focus-visible {
+    outline: 2px solid #0B4F7D;
+    outline-offset: 3px;
+}
+
+/* Registration page background */
+.auth-wrapper {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background-color: #EAF4F8;
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form card */
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border: 1px solid #D5E3E9;
+    border-radius: 12px;
+    background-color: white;
+}
+
+.auth-card h1 {
+    display: block;
+    margin: 0 0 10px;
+    color: #0B4F7D;
+    font-size: 28px;
+    text-align: center;
+}
+
+.auth-card .subtitle {
+    margin: 0 0 25px;
+    color: #426575;
+    text-align: center;
+}
+
+/* Form fields */
+.auth-card .form-group {
+    margin-bottom: 18px;
+}
+
+.auth-card label {
+    display: block;
+    margin-bottom: 8px;
+    color: #0B4F7D;
+    font-weight: bold;
+}
+
+.auth-card input:not([type="hidden"]) {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #71838F;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+/* Register button */
+.auth-card .btn-auth {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #246B38;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-card .btn-auth:hover {
+    background-color: #1B522B;
+}
+
+/* Login link */
+.auth-card .auth-switch {
+    margin: 20px 0 0;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.auth-card a {
+    color: #0B4F7D;
+    font-weight: bold;
+}
+
+/* Error message */
+.auth-card .error-msg {
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #FDECEC;
+    color: #A12622;
+}
+
+/* Keyboard focus */
+.auth-card input:focus-visible,
+.auth-card button:focus-visible,
+.auth-card a:focus-visible {
+    outline: 2px solid #0B4F7D;
+    outline-offset: 3px;
+}
+
+.login-box .register-error {
+    padding: 12px;
+    border-radius: 6px;
+    background-color: #FDECEC;
+    color: #A12622;
+    text-align: left;
+}
+
+/* HOMEPAGE FOOTER */
+.home-footer {
+    margin-top: 30px;
+    padding: 40px 30px 20px;
+    border-top: 5px solid #2DA447;
+    background-color: #083B5E;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Three columns */
+.home-footer .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Pharmacy introduction */
+.home-footer .footer-brand h2 {
+    margin: 0 0 14px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.home-footer .footer-brand h2 span {
+    color: #8DDD9D;
+}
+
+.home-footer .footer-brand p {
+    max-width: 420px;
+    margin: 0 0 14px;
+    color: #D8E8F1;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Link headings */
+.home-footer .footer-links h3 {
+    margin: 0 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #8DDD9D;
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+/* Footer navigation links */
+.home-footer .footer-links a {
+    display: block;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    color: #D8E8F1;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.home-footer .footer-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Copyright and back-to-top row */
+.home-footer .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #52768C;
+}
+
+.home-footer .footer-bottom p {
+    margin: 0;
+    color: #D8E8F1;
+    font-size: 14px;
+}
+
+.home-footer .footer-bottom a {
+    padding: 10px 16px;
+    border: 1px solid #B8D7E8;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.home-footer .footer-bottom a:hover {
+    background-color: white;
+    color: #083B5E;
+}
+

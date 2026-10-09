@@ -64,13 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <title>Log In | Price Line Pharmacy</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CSS/customer.css">
 </head>
 
 <body class="login-page">
     <main class="login-box">
         <a href="homepage.php">
-            <img src="images/Price Line Pharmacy logo.png"
+            <img src="images/PriceLine Pharmacy Logo in Blue and Green.png"
                  alt="Price Line Pharmacy home"
                  class="login-logo">
         </a>

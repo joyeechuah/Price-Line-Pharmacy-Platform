@@ -18,7 +18,7 @@ $name = $_SESSION['user']['name'];
 
     <title>Admin Dashboard | Price Line Pharmacy</title>
 
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../CSS/admin.css">
 </head>
 
 <body class="admin-page">
@@ -34,6 +34,12 @@ $name = $_SESSION['user']['name'];
         <a href="products.php">Products</a>
         <a href="orders.php">Orders</a>
         <a href="consultation.php">Consultations</a>
+
+        <form action="../logout.php" method="POST">
+            <input type="hidden" name="csrf_token"
+                   value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
+            <button type="submit" class="logout-button">Log Out</button>
+        </form>
     </nav>
 
     <main class="admin-content">
