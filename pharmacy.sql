@@ -102,7 +102,7 @@ VALUES
         'Vitamin C',
         'Sample vitamin product for testing the catalogue.',
         'Vitamins and Supplements',
-        48.00,
+        31.35,
         30,
         'images/flavettes vitamin c.jpg'
     ),
@@ -110,7 +110,7 @@ VALUES
         'Fish Oil',
         'Sample supplement product for testing the catalogue.',
         'Vitamins and Supplements',
-        89.00,
+        131.10,
         20,
         'images/fish oil.jpg'
     ),
@@ -118,7 +118,7 @@ VALUES
         'Moisturising Cream',
         'Sample skincare product for testing the catalogue.',
         'Skincare',
-        65.00,
+        58.90,
         15,
         'images/cerave moisturizing cream.jpg'
     ),

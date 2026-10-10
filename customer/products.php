@@ -39,24 +39,41 @@ if (!in_array($category, ['', 'vitamins', 'skincare', 'mom-baby', 'medical', 'he
 // Keep the same search after adding a product.
 $pageUrl = 'products.php?' . http_build_query(['q' => $search, 'category' => $category]);
 
-// STEP 3: Add a product to the logged-in customer's cart.
+// STEP 3: Add a product to a guest or customer cart.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!$user) {
-        header('Location: ../login.php');
-        exit;
-    }
-
     $token = (string) filter_input(INPUT_POST, 'csrf_token');
     $productId = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
     $quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT);
 
-    if (!$isCustomer) {
+    if ($user && !$isCustomer) {
         http_response_code(403);
         $error = 'Only customer accounts can add products to a cart.';
     } elseif (!hash_equals($_SESSION['csrf_token'], $token)) {
         $error = 'Please reload the page and try again.';
     } elseif (!$productId || $productId < 1 || !$quantity || $quantity < 1 || $quantity > 2147483647) {
         $error = 'Choose a product and enter a whole-number quantity of at least 1.';
+    } elseif (!$user) {
+        // Guest carts store product IDs and quantities in the session.
+        try {
+            $stmt = $pdo->prepare('SELECT name, stock FROM products WHERE product_id = ?');
+            $stmt->execute([$productId]);
+            $product = $stmt->fetch();
+            $alreadyInCart = $_SESSION['guest_cart'][$productId] ?? 0;
+
+            if (!$product) {
+                $error = 'This product is no longer available.';
+            } elseif ($alreadyInCart + $quantity > $product['stock']) {
+                $error = 'There is not enough stock for this quantity, including items already in your cart.';
+            } else {
+                $_SESSION['guest_cart'][$productId] = $alreadyInCart + $quantity;
+                $_SESSION['cart_message'] = $quantity . ' x ' . $product['name'] . ' added to your cart.';
+                header('Location: ' . $pageUrl);
+                exit;
+            }
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            $error = 'Unable to add this product. Please try again.';
+        }
     } else {
         try {
             // Keep the stock check and cart change together.
@@ -118,6 +135,8 @@ try {
         $stmt = $pdo->prepare('SELECT COALESCE(SUM(quantity), 0) FROM cart_items WHERE user_id = ?');
         $stmt->execute([$user['user_id']]);
         $cartCount = (int) $stmt->fetchColumn();
+    } elseif (!$user) {
+        $cartCount = array_sum($_SESSION['guest_cart'] ?? []);
     }
 } catch (PDOException $e) {
     error_log($e->getMessage());
@@ -138,7 +157,16 @@ try {
             <a href="../homepage.php">Home</a>
             <a href="products.php" aria-current="page">Products</a>
             <a href="../membership-benefits.php">Membership Benefits</a>
+            <?php if (!$user || $isCustomer): ?>
+            <a href="consultation.php">Consultations</a>
+            <a href="orders.php">My Orders</a>
+            <?php endif; ?>
             <div class="customer-account-links">
+                <?php if (!$user || $isCustomer): ?>
+                    <a href="cart.php" class="customer-cart-link">
+                        <img src="../images/cart-icon.svg" class="customer-cart-icon" alt="" width="28" height="28"> <span>Cart<?php if ($loadError === ''): ?> (<?php echo $cartCount; ?>)<?php endif; ?></span>
+                    </a>
+                <?php endif; ?>
                 <?php if ($user): ?>
                     <form action="../logout.php" method="POST">
                         <input type="hidden" name="csrf_token" value="<?php echo escape($_SESSION['csrf_token']); ?>">
@@ -221,7 +249,7 @@ try {
                             <?php foreach ($sectionProducts as $product): ?>
                                 <article class="customer-product-card">
                                     <!-- Placeholder for now. Later, use the product's saved image_url here. -->
-                                    <img class="customer-product-image" src="../images/product-placeholder.svg" alt="Placeholder image for <?php echo escape($product['name']); ?>" width="320" height="240" loading="lazy">
+                                    <img class="customer-product-image" src="../<?php echo escape($product['image_url']); ?>" alt="<?php echo escape($product['name']); ?>" loading="lazy">
                                     <h3><?php echo escape($product['name']); ?></h3>
                                     <p class="customer-description"><?php echo escape($product['description']); ?></p>
                                     <p class="customer-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
@@ -230,7 +258,7 @@ try {
                                         <button type="button" disabled>Out of Stock</button>
                                     <?php else: ?>
                                         <p class="customer-stock">In stock: <?php echo (int) $product['stock']; ?></p>
-                                        <?php if ($isCustomer): ?>
+                                        <?php if (!$user || $isCustomer): ?>
                                             <form action="<?php echo escape($pageUrl); ?>" method="POST" class="customer-cart-form">
                                                 <input type="hidden" name="csrf_token" value="<?php echo escape($_SESSION['csrf_token']); ?>">
                                                 <input type="hidden" name="product_id" value="<?php echo (int) $product['product_id']; ?>">
@@ -238,8 +266,6 @@ try {
                                                 <input type="number" class="customer-input quantity-input" id="quantity-<?php echo (int) $product['product_id']; ?>" name="quantity" min="1" max="<?php echo (int) $product['stock']; ?>" value="1" required>
                                                 <button type="submit">Add to Cart</button>
                                             </form>
-                                        <?php elseif (!$user): ?>
-                                            <a class="customer-shop-link" href="../login.php">Log In to Shop</a>
                                         <?php else: ?>
                                             <button type="button" disabled>Customer Account Required</button>
                                         <?php endif; ?>

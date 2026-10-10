@@ -82,18 +82,6 @@ body {
     color: white;
 }
 
-/* Upload e-Prescription */
-.pharmacy-navbar .prescription-button {
-    border-color: #084B7B;
-    background-color: white;
-    color: #084B7B;
-}
-
-.pharmacy-navbar .prescription-button:hover {
-    background-color: #084B7B;
-    color: white;
-}
-
 /* Account links now sit inside the navbar */
 .pharmacy-navbar .account-links {
     position: static;

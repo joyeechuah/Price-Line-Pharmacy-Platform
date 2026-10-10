@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="CSS/membership-benefits.css">
 </head>
 
-<body class="membership-page">
+<body class="membership-page" id="page-top">
 
     <!-- Add your existing website header and navigation here. -->
 
@@ -108,7 +108,7 @@
         <div class="footer-links">
             <h3>Explore</h3>
             <a href="homepage.php">Home</a>
-            <a href="products.php">Products</a>
+            <a href="customer/products.php">Products</a>
             <a href="membership-benefits.php">
                 Membership Benefits
             </a>
@@ -121,9 +121,6 @@
             <h3>Your Account</h3>
             <a href="login.php">Log In</a>
             <a href="register.php">Create an Account</a>
-            <a href="prescription.php">
-                Upload e-Prescription
-            </a>
         </div>
 
     </div>

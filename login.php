@@ -1,57 +1,83 @@
 <?php
 session_start();
-
 require_once __DIR__ . '/config/database.php';
 
 $error = '';
+$email = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
+    $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    if ($email === '' || $password === '') {
-        $error = 'Please enter your email and password.';
+    if (!is_string($email) || !is_string($password)) {
+        $error = 'Invalid form information.';
+        $email = '';
     } else {
-        $stmt = $pdo->prepare(
-            'SELECT user_id, name, email, password_hash, role
-             FROM users
-             WHERE email = ?'
-        );
+        $email = trim($email);
+        if ($email === '' || $password === '') {
+            $error = 'Please enter your email and password.';
+        }
+    }
 
-        $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($error === '') {
+        try {
+            $statement = $pdo->prepare(
+                'SELECT user_id, name, email, password_hash, role
+                 FROM users WHERE email = :email'
+            );
+            $statement->execute(array(':email' => $email));
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password_hash'])) {
-            session_regenerate_id(true);
+            if ($user && password_verify($password, $user['password_hash'])) {
+                // Carry over a guest cart only when signing in as a customer.
+                $guestCart = [];
+                $checkoutAfterLogin = false;
+                if (!isset($_SESSION['user']) && $user['role'] === 'customer') {
+                    $guestCart = $_SESSION['guest_cart'] ?? [];
+                    $checkoutAfterLogin = !empty($_SESSION['checkout_after_login']);
+                }
+                session_regenerate_id(true);
+                // A new login should not reuse another account's checkout or messages.
+                $_SESSION = array();
+                $_SESSION['user'] = array(
+                    'user_id' => $user['user_id'],
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'role' => $user['role']
+                );
 
-            $_SESSION['user'] = [
-                'user_id' => $user['user_id'],
-                'name'    => $user['name'],
-                'email'   => $user['email'],
-                'role'    => $user['role']
-            ];
+                if ($guestCart) {
+                    $_SESSION['guest_cart'] = $guestCart;
+                }
+                if ($checkoutAfterLogin) {
+                    $_SESSION['checkout_after_login'] = true;
+                }
 
-            switch ($user['role']) {
-                case 'admin':
-                    header('Location: admin/dashboard.php');
-                    break;
-
-                case 'pharmacist':
-                    header('Location: pharmacist/dashboard.php');
-                    break;
-
-                case 'storekeeper':
-                    header('Location: admin/products.php');
-                    break;
-
-                default:
-                header('Location: customer/products.php');
-                break;
+                switch ($user['role']) {
+                    case 'admin':
+                        header('Location: admin/dashboard.php');
+                        break;
+                    case 'pharmacist':
+                        header('Location: pharmacist/dashboard.php');
+                        break;
+                    case 'storekeeper':
+                        header('Location: admin/products.php');
+                        break;
+                    default:
+                        if ($guestCart || $checkoutAfterLogin) {
+                            header('Location: customer/cart.php');
+                        } else {
+                            header('Location: customer/products.php');
+                        }
+                        break;
+                }
+                exit;
+            } else {
+                $error = 'Invalid email or password.';
             }
-
-            exit;
-        } else {
-            $error = 'Invalid email or password.';
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            $error = 'Unable to log in. Please try again.';
         }
     }
 }
@@ -77,6 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <h1>Welcome Back</h1>
         <p>Log in to your Price Line Pharmacy account.</p>
+        <?php if (!empty($_SESSION['checkout_after_login'])): ?>
+            <p>Please log in to continue to checkout. Your guest cart will be kept.</p>
+        <?php endif; ?>
+
+        <?php if ($error !== ''): ?>
+            <p class="register-error" role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+        <?php endif; ?>
 
         <form action="login.php" method="POST">
             <label for="email">Email</label>
@@ -84,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="email"
                    id="email"
                    name="email"
+                   value="<?php echo htmlspecialchars($email, ENT_QUOTES, 'UTF-8'); ?>"
                    placeholder="Enter your email"
                    autocomplete="username"
                    required>

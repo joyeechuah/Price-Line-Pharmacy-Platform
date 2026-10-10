@@ -148,7 +148,7 @@ body {
     cursor: pointer;
 }
 
-.consultation-actions .delete-button {
+.consultation-actions button.delete-button {
     background-color: #A12622;
     border-color: #A12622;
 }

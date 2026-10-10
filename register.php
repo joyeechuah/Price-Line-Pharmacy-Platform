@@ -2,10 +2,14 @@
 // STEP 1: Start the session.
 session_start();
 
+// Registration is for guests. Logged-in users already have an account.
+if (isset($_SESSION['user'])) {
+    header('Location: homepage.php');
+    exit;
+}
+
 // STEP 2: Include the database connection.
 require_once __DIR__ . '/config/database.php';
-
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // STEP 3: Prepare an error message and form security token.
 $error = '';
@@ -37,10 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($name === '' || $email === '' || $password === '') {
             $error = 'Please complete all fields.';
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        } elseif (mb_strlen($name) > 100) {
+            $error = 'Your name must be no longer than 100 characters.';
+        } elseif (strlen($email) > 225 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'Please enter a valid email address.';
         } elseif (strlen($password) < 8) {
             $error = 'Your password must have at least 8 characters.';
+        } elseif (strlen($password) > 72) {
+            $error = 'Your password is too long. Please use a shorter password.';
+        } elseif (strpos($password, "\0") !== false) {
+            $error = 'Your password contains an invalid character.';
         } elseif ($password !== $confirmPassword) {
             $error = 'The passwords do not match.';
         }
@@ -72,7 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$name, $email, $hashedPassword]);
 
                 // STEP 9: Log the new customer in.
+                $guestCart = $_SESSION['guest_cart'] ?? [];
+                $checkoutAfterLogin = !empty($_SESSION['checkout_after_login']);
                 session_regenerate_id(true);
+                $_SESSION = array();
 
                 $_SESSION['user'] = [
                     'user_id' => $pdo->lastInsertId(),
@@ -81,8 +94,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'role'    => 'customer'
                 ];
 
-                // STEP 10: Redirect to the products page.
-                header('Location: customer/products.php');
+                // STEP 10: Keep guest items when a new customer registers.
+                if ($guestCart) {
+                    $_SESSION['guest_cart'] = $guestCart;
+                }
+                if ($checkoutAfterLogin) {
+                    $_SESSION['checkout_after_login'] = true;
+                }
+                if ($guestCart || $checkoutAfterLogin) {
+                    header('Location: customer/cart.php');
+                } else {
+                    header('Location: customer/products.php');
+                }
                 exit;
             }
         } catch (PDOException $e) {
@@ -160,6 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    name="password"
                    placeholder="At least 8 characters"
                    minlength="8"
+                   maxlength="72"
                    autocomplete="new-password"
                    required>
 
@@ -169,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    name="confirm_password"
                    placeholder="Enter your password again"
                    minlength="8"
+                   maxlength="72"
                    autocomplete="new-password"
                    required>
 

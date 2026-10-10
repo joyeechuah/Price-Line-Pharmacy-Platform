@@ -22,7 +22,6 @@
         <a href="homepage.php" aria-current="page">Home</a>
         <a href="customer/products.php">Products</a>
         <a href="membership-benefits.php">Membership Benefits</a>
-        <a href="prescription.php" class="nav-button prescription-button">Upload e-Prescription</a>
         <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
         <div class="account-links">
        <a href="login.php">Log In</a>
@@ -91,8 +90,8 @@
     </div>
     <div class="hero-content">
     <h2>
-    Order prescription refills online, chat with a licensed pharmacist,
-    and get your medications delivered right to your door.
+    Browse health essentials, place an order online,
+    and request a pharmacist consultation.
     </h2>
     <form action="customer/products.php" method="GET" role="search" class="search-form">
     <label for="site-search">Search Products</label>
@@ -121,7 +120,7 @@
         <h4>Flavettes Vitamin C 500mg (Orange Flavoured)</h4>
         <p class="product-price">RM 31.35</p>
 
-        <a href="products.php?category=vitamins" class="product-link">
+        <a href="customer/products.php?category=vitamins" class="product-link">
             Browse Products
         </a>
     </article>
@@ -132,7 +131,7 @@
         <h4>Bio-Life Omega-3 Fish Oil (2x100s)</h4>
         <p class="product-price">RM 131.10</p>
 
-        <a href="products.php?category=vitamins" class="product-link">
+        <a href="customer/products.php?category=vitamins" class="product-link">
             Browse Products
         </a>
     </article>
@@ -143,7 +142,7 @@
         <h4>Blackmores Multivitamins and Minerals (120s)</h4>
         <p class="product-price">RM 105.90</p>
 
-        <a href="products.php?category=vitamins" class="product-link">
+        <a href="customer/products.php?category=vitamins" class="product-link">
             Browse Products
         </a>
     </article>
@@ -152,7 +151,7 @@
     <section class="section-3">
         <h2>Skincare Essentials</h2>
         <p>Discover everyday skincare essentials designed to cleanse, hydrate, protect, and keep your skin feeling healthy and refreshed.</p>
-        <img src="images/Skincare.png" alt="Skincare essentials">
+        <img src="images/customer-skincare-banner.png" alt="Skincare essentials">
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
@@ -162,7 +161,7 @@
         <h4>Cerave Moisturizing Cream 340g</h4>
         <p class="product-price">RM 58.90</p>
 
-        <a href="products.php?category=skincare" class="product-link">
+        <a href="customer/products.php?category=skincare" class="product-link">
             Browse Products
         </a>
     </article>
@@ -173,7 +172,7 @@
         <h4>La Roche Posay Toleriane Caring Wash 200ml</h4>
         <p class="product-price">RM 68.50</p>
 
-        <a href="products.php?category=skincare" class="product-link">
+        <a href="customer/products.php?category=skincare" class="product-link">
             Browse Products
         </a>
     </article>
@@ -184,7 +183,7 @@
         <h4>Neutrogena Hydro Boost Hyaluronic Acid Water Gel 50g</h4>
         <p class="product-price">RM 58.00</p>
 
-        <a href="products.php?category=skincare" class="product-link">
+        <a href="customer/products.php?category=skincare" class="product-link">
             Browse Products
         </a>
     </article>
@@ -203,7 +202,7 @@
         <h4>Omron Automatic Blood Pressure Monitor HEM-7121</h4>
         <p class="product-price">RM 338.00</p>
 
-        <a href="products.php?category=medical-supplies" class="product-link">
+        <a href="customer/products.php?category=medical" class="product-link">
             Browse Products
         </a>
     </article>
@@ -214,18 +213,18 @@
         <h4>Dettol Hand Sanitizer 2 in 1 50ml</h4>
         <p class="product-price">RM 11.50</p>
 
-        <a href="products.php?category=medical-supplies" class="product-link">
+        <a href="customer/products.php?category=medical" class="product-link">
             Browse Products
         </a>
     </article>
 
     <article class="product-card">
-        <img src="images\hansaplast plaster.jpg" alt="Hansaplast Universal Plaster 100s">
+        <img src="images/hansaplast plaster.jpg" alt="Hansaplast Universal Plaster 100s">
 
         <h4>Hansaplast Universal Plaster 100s</h4>
         <p class="product-price">RM 15.00</p>
 
-        <a href="products.php?category=medical-supplies" class="product-link">
+        <a href="customer/products.php?category=medical" class="product-link">
             Browse Products
         </a>
     </article>
@@ -248,7 +247,7 @@
         <div class="footer-links">
             <h3>Explore</h3>
             <a href="homepage.php">Home</a>
-            <a href="products.php">Products</a>
+            <a href="customer/products.php">Products</a>
             <a href="membership-benefits.php">
                 Membership Benefits
             </a>
@@ -261,9 +260,6 @@
             <h3>Your Account</h3>
             <a href="login.php">Log In</a>
             <a href="register.php">Create an Account</a>
-            <a href="prescription.php">
-                Upload e-Prescription
-            </a>
         </div>
 
     </div>
