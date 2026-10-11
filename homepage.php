@@ -1,3 +1,26 @@
+<?php
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/includes/cart.php';
+
+$user = $_SESSION['user'] ?? null;
+$isCustomer = isCustomer();
+$cartCount = getCartCount($pdo);
+
+// Staff members get a link back to their own panel.
+$staffPage = '';
+if (isAdmin()) {
+    $staffPage = 'admin/dashboard.php';
+} elseif (isPharmacist()) {
+    $staffPage = 'pharmacist/dashboard.php';
+} elseif (isStorekeeper()) {
+    $staffPage = 'admin/products.php';
+}
+
+// Homepage cards always use the same names and prices as the shop.
+$stmt = $pdo->query('SELECT name, category, price, image_url FROM products WHERE is_active = 1 ORDER BY product_id');
+$featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +35,8 @@
 >
 
     <link rel="stylesheet" href="CSS/homepage.css">
+    <link rel="stylesheet" href="CSS/navbar.css">
+    <link rel="stylesheet" href="CSS/footer.css">
 </head>
 <body id="page-top">
     <nav class="headbar" aria-label="Main navigation">
@@ -22,11 +47,27 @@
         <a href="homepage.php" aria-current="page">Home</a>
         <a href="customer/products.php">Products</a>
         <a href="membership-benefits.php">Membership Benefits</a>
-        <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
+        <?php if (!$user || $isCustomer): ?>
+            <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
+        <?php endif; ?>
         <div class="account-links">
-       <a href="login.php">Log In</a>
-       <a href="register.php" class="register-link">Register</a>
-       </div>
+            <?php if (!$user || $isCustomer): ?>
+                <a href="customer/cart.php" class="navbar-cart"><img src="images/cart-icon.svg" alt="" width="24" height="24"> Cart (<?php echo $cartCount; ?>)</a>
+            <?php endif; ?>
+            <?php if ($user): ?>
+                <?php if ($isCustomer): ?>
+                    <a href="customer/orders.php">My Orders</a>
+                <?php else: ?>
+                    <a href="<?php echo htmlspecialchars($staffPage); ?>">Staff Panel</a>
+                <?php endif; ?>
+                <form action="logout.php" method="POST">
+                    <button type="submit">Log Out</button>
+                </form>
+            <?php else: ?>
+                <a href="login.php">Log In</a>
+                <a href="register.php" class="register-link">Register</a>
+            <?php endif; ?>
+        </div>
     </div>
     </nav>
     <header class="header">
@@ -96,44 +137,26 @@
     </div>
     </header>
     <section class="section-2">
-        <h2>Vitamins & Supplements</h2>
+        <h2>Vitamins &amp; Supplements</h2>
         <p>Tailored nutrition for every body. Browse our pharmacist-approved supplements to support your family's health at every stage of life.</p>
-        <img src="images/vitamins&supplements.png" alt="Vitamins and Supplements">
+        <img src="images/vitamins&amp;supplements.png" alt="Vitamins and Supplements">
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
-    <article class="product-card">
-        <img src="images/flavettes vitamin c.jpg" alt="Flavettes Vitamin C">
-
-        <h4>Flavettes Vitamin C 500mg (Orange Flavoured)</h4>
-        <p class="product-price">RM 31.35</p>
-
-        <a href="customer/products.php?category=vitamins" class="product-link">
-            Browse Products
-        </a>
-    </article>
-
-    <article class="product-card">
-        <img src="images/fish oil.jpg" alt="Bio-Life Omega-3 Fish Oil">
-
-        <h4>Bio-Life Omega-3 Fish Oil (2x100s)</h4>
-        <p class="product-price">RM 131.10</p>
-
-        <a href="customer/products.php?category=vitamins" class="product-link">
-            Browse Products
-        </a>
-    </article>
-
-    <article class="product-card">
-        <img src="images/blackmoresmy2020multivitaminmineral120tabs200mlwithcode1-Photoroom.png" alt="Blackmores Multivitamins">
-
-        <h4>Blackmores Multivitamins and Minerals (120s)</h4>
-        <p class="product-price">RM 105.90</p>
-
-        <a href="customer/products.php?category=vitamins" class="product-link">
-            Browse Products
-        </a>
-    </article>
+        <?php $shown = 0; ?>
+        <?php foreach ($featured as $product): ?>
+            <?php if ($product['category'] !== 'Vitamins and Supplements') continue; ?>
+            <article class="product-card">
+                <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                <a href="customer/products.php?category=vitamins&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
+            </article>
+            <?php $shown++; if ($shown === 3) break; ?>
+        <?php endforeach; ?>
+        <?php if ($shown === 0): ?>
+            <p>No products available in this category yet.</p>
+        <?php endif; ?>
     </div>
     </section>
     <section class="section-3">
@@ -143,120 +166,47 @@
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
-    <article class="product-card">
-        <img src="images/cerave moisturizing cream.jpg" alt="Cerave Moisturizing Cream">
-
-        <h4>Cerave Moisturizing Cream 340g</h4>
-        <p class="product-price">RM 58.90</p>
-
-        <a href="customer/products.php?category=skincare" class="product-link">
-            Browse Products
-        </a>
-    </article>
-
-    <article class="product-card">
-        <img src="images/La roche posay gentle cleanser.png" alt="La Roche Posay Gentle Cleanser">
-
-        <h4>La Roche Posay Toleriane Caring Wash 200ml</h4>
-        <p class="product-price">RM 68.50</p>
-
-        <a href="customer/products.php?category=skincare" class="product-link">
-            Browse Products
-        </a>
-    </article>
-
-    <article class="product-card">
-        <img src="images/neutrogena hydro boost water gel.jpg" alt="Neutrogena Hydro Boost Water Gel">
-
-        <h4>Neutrogena Hydro Boost Hyaluronic Acid Water Gel 50g</h4>
-        <p class="product-price">RM 58.00</p>
-
-        <a href="customer/products.php?category=skincare" class="product-link">
-            Browse Products
-        </a>
-    </article>
+        <?php $shown = 0; ?>
+        <?php foreach ($featured as $product): ?>
+            <?php if ($product['category'] !== 'Skincare') continue; ?>
+            <article class="product-card">
+                <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                <a href="customer/products.php?category=skincare&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
+            </article>
+            <?php $shown++; if ($shown === 3) break; ?>
+        <?php endforeach; ?>
+        <?php if ($shown === 0): ?>
+            <p>No products available in this category yet.</p>
+        <?php endif; ?>
     </div>
     </section>
     <section class="section-4">
         <h2>Medical Supplies</h2>
-        <p>Find reliable medical supplies for everyday health needs, from first-aid essentials to home healthcare products—conveniently available in one place.</p>
+        <p>Find reliable medical supplies for everyday health needs, from first-aid essentials to home healthcare products, conveniently available in one place.</p>
         <img src="images/medical supplies.png" alt="Medical Supplies">
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
-    <article class="product-card">
-        <img src="images/omron blood pressure monitor.jpg" alt="Omron Blood Pressure Monitor">
-
-        <h4>Omron Automatic Blood Pressure Monitor HEM-7121</h4>
-        <p class="product-price">RM 338.00</p>
-
-        <a href="customer/products.php?category=medical" class="product-link">
-            Browse Products
-        </a>
-    </article>
-
-    <article class="product-card">
-        <img src="images/Dettol hand sanitizer 2 in 1.jpg" alt="Dettol Hand Sanitizer 2 in 1 50ml">
-
-        <h4>Dettol Hand Sanitizer 2 in 1 50ml</h4>
-        <p class="product-price">RM 11.50</p>
-
-        <a href="customer/products.php?category=medical" class="product-link">
-            Browse Products
-        </a>
-    </article>
-
-    <article class="product-card">
-        <img src="images/hansaplast plaster.jpg" alt="Hansaplast Universal Plaster 100s">
-
-        <h4>Hansaplast Universal Plaster 100s</h4>
-        <p class="product-price">RM 15.00</p>
-
-        <a href="customer/products.php?category=medical" class="product-link">
-            Browse Products
-        </a>
-    </article>
+        <?php $shown = 0; ?>
+        <?php foreach ($featured as $product): ?>
+            <?php if ($product['category'] !== 'Medical Supplies') continue; ?>
+            <article class="product-card">
+                <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                <a href="customer/products.php?category=medical&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
+            </article>
+            <?php $shown++; if ($shown === 3) break; ?>
+        <?php endforeach; ?>
+        <?php if ($shown === 0): ?>
+            <p>No products available in this category yet.</p>
+        <?php endif; ?>
     </div>
     </section>
 
-    <footer class="home-footer">
-    <div class="footer-content">
-
-        <div class="footer-brand">
-            <h2>Price <span>Line</span> Pharmacy</h2>
-            <p>Your Health, Delivered Fast and Safe.</p>
-            <p>
-                Explore everyday health essentials,
-                discover membership benefits and
-                request a pharmacist consultation
-            </p>
-        </div>
-
-        <div class="footer-links">
-            <h3>Explore</h3>
-            <a href="homepage.php">Home</a>
-            <a href="customer/products.php">Products</a>
-            <a href="membership-benefits.php">
-                Membership Benefits
-            </a>
-            <a href="customer/consultation.php">
-                E-Consult Now
-            </a>
-        </div>
-
-        <div class="footer-links">
-            <h3>Your Account</h3>
-            <a href="login.php">Log In</a>
-            <a href="register.php">Create an Account</a>
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-        <p>&copy; 2026 Price Line Pharmacy.</p>
-        <a href="#page-top">Back to top ↑</a>
-    </div>
-    </footer>
+<?php require __DIR__ . '/includes/footer.php'; ?>
 
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
