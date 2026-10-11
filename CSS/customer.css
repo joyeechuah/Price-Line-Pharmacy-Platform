@@ -379,9 +379,18 @@ body {
     padding: 8px 14px;
 }
 
+/* Main logo matches the login and register pages. */
+.page-logo {
+    display: block;
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
+}
+
 .customer-intro {
     padding: 30px 25px;
-    background-color: #EAF4F8;
+    background-color: white;
     text-align: center;
 }
 
@@ -397,9 +406,9 @@ body {
 }
 
 .customer-intro h1 {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
     color: #0B4F7D;
-    font-size: 32px;
+    font-size: 28px;
 }
 
 .customer-intro p {
@@ -652,10 +661,6 @@ body {
 
     .customer-search > div {
         width: 100%;
-    }
-
-    .customer-intro h1 {
-        font-size: 27px;
     }
 
     .customer-product-grid {

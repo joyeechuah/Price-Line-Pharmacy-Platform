@@ -70,7 +70,7 @@ try {
             </div>
         </nav>
         <div class="customer-intro">
-            <p class="customer-brand">Price <span>Line</span> Pharmacy</p>
+            <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">
             <h1>My Orders</h1>
             <p>View your order history and purchased items.</p>
         </div>

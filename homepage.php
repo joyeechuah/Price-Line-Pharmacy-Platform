@@ -31,14 +31,8 @@
     </nav>
     <header class="header">
     <div class="header-hero-section">
-    <h1 class="brand-heading">
-    Price <span class="brand-line">Line</span>
-    <span class="brand-pharmacy">Pharmacy</span>
-
-    <span class="brand-tagline">
-        Your Health, Delivered Fast and Safe.
-    </span>
-    </h1>
+    <h1 class="brand-heading"><img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">Home</h1>
+    <p class="brand-tagline">Your Health, Delivered Fast and Safe.</p>
     </div>
     <div id="pharmacyCarousel"
      class="carousel slide right-header"
@@ -50,18 +44,12 @@
 
         <!-- First banner -->
         <div class="carousel-item active">
-            <img
-                src="images/Price Line Pharmacy Hero Banner.png"
-                alt="Price Line Pharmacy — quality healthcare within your reach"
-            >
+            <img src="images/Price Line Pharmacy Hero Banner.png" alt="Price Line Pharmacy — quality healthcare within your reach">
         </div>
 
         <!-- Second banner -->
         <div class="carousel-item">
-            <img
-                src="images/HOT ITEMS pharmacy banner.png"
-                alt="Explore our vitamins and supplements"
-            >
+            <img src="images/HOT ITEMS Pharmacy banner 2.png" alt="Explore our vitamins and supplements">
         </div>
 
     </div>

@@ -11,13 +11,27 @@
 
 <body class="membership-page" id="page-top">
 
-    <!-- Add your existing website header and navigation here. -->
+    <nav class="headbar" aria-label="Main navigation">
+    <div class="pharmacy-navbar">
+        <a href="homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
+            <img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
+        </a>
+        <a href="homepage.php">Home</a>
+        <a href="customer/products.php">Products</a>
+        <a href="membership-benefits.php" aria-current="page">Membership Benefits</a>
+        <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
+        <div class="account-links">
+       <a href="login.php">Log In</a>
+       <a href="register.php" class="register-link">Register</a>
+       </div>
+    </div>
+    </nav>
 
     <main>
         <section class="membership-intro">
-            <p class="membership-label">PRICE LINE PHARMACY MEMBERSHIP</p>
+            <img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">
 
-            <h1>Your health journey starts here.</h1>
+            <h1>Membership Benefits</h1>
 
             <p>
                 Create a customer account to shop for health essentials,

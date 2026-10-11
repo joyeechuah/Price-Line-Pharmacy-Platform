@@ -11,6 +11,123 @@ body{
     color: #263F4D;
 }
 
+/* Navigation matches the homepage. */
+.headbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #E4F2E9;
+}
+
+/* Compact navigation bar */
+.pharmacy-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background-color: #E4F2E9;
+    border-bottom: 2px solid #246B38;
+}
+
+/* Navigation links */
+.pharmacy-navbar a {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid #B8CEDA;
+    border-radius: 8px;
+    background-color: white;
+    color: #084B7B;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.pharmacy-navbar a:hover {
+    border-color: #084B7B;
+    background-color: #EAF4F8;
+}
+
+/* Small logo on the same row as the navigation links */
+.pharmacy-navbar .navbar-logo {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    flex-shrink: 0;
+    margin-right: 12px;
+}
+
+.pharmacy-navbar .navbar-logo:hover {
+    background-color: transparent;
+}
+
+.pharmacy-navbar .navbar-logo img {
+    display: block;
+    width: 66px;
+    height: 66px;
+    border-radius: 8px;
+}
+
+/* Current page */
+.pharmacy-navbar a[aria-current="page"] {
+    border-color: #084B7B;
+    background-color: #084B7B;
+    color: white;
+}
+
+/* E-Consult */
+.pharmacy-navbar .nav-button {
+    border-color: #246B38;
+    background-color: #246B38;
+    color: white;
+}
+
+.pharmacy-navbar .nav-button:hover {
+    border-color: #1B522B;
+    background-color: #1B522B;
+    color: white;
+}
+
+/* Account links now sit inside the navbar */
+.pharmacy-navbar .account-links {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.pharmacy-navbar .account-links a {
+    padding: 6px 10px;
+    border: 1px solid #084B7B;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.pharmacy-navbar .account-links .register-link {
+    border-color: #246B38;
+    background-color: #246B38;
+    color: white;
+}
+
+.pharmacy-navbar .account-links .register-link:hover {
+    border-color: #1B522B;
+    background-color: #1B522B;
+}
+
+/* Account links on a separate row when space is limited */
+@media (max-width: 900px) {
+    .pharmacy-navbar .account-links {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
 .membership-page main {
     width: 100%;
     max-width: 1270px;
@@ -18,27 +135,28 @@ body{
 }
 
 .membership-intro {
-    padding: 65px 30px;
-    background: linear-gradient(135deg, #EAF4F8, #E4F2E9);
+    padding: 30px 25px;
+    background-color: white;
     text-align: center;
 }
 
-.membership-label {
-    margin: 0 0 15px;
-    color: #246B38;
-    font-size: 13px;
-    font-weight: bold;
-    letter-spacing: 2px;
+/* Main logo matches the login and register pages. */
+.page-logo {
+    display: block;
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
 }
 
 .membership-intro h1 {
     display: block;
-    margin: 0 0 20px;
+    margin: 0 0 10px;
     color: #0B4F7D;
-    font-size: clamp(28px, 4vw, 42px);
+    font-size: 28px;
 }
 
-.membership-intro > p:not(.membership-label) {
+.membership-intro > p {
     max-width: 650px;
     margin: 0 auto 25px;
 }
@@ -261,7 +379,7 @@ body{
     }
 
     .membership-intro {
-        padding: 40px 20px;
+        padding: 30px 20px;
     }
 
     .membership-benefits,

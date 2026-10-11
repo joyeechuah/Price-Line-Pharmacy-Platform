@@ -188,7 +188,7 @@ if ($canCheckout) {
             </div>
         </nav>
         <div class="customer-intro">
-            <p class="customer-brand">Price <span>Line</span> Pharmacy</p>
+            <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">
             <h1>Checkout</h1>
             <p>Review your items and enter your delivery details.</p>
         </div>

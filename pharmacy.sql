@@ -99,7 +99,7 @@ VALUES
 INSERT INTO products (name, description, category, price, stock, image_url)
 VALUES
     (
-        'Vitamin C',
+        'Flavettes Vitamin C',
         'Sample vitamin product for testing the catalogue.',
         'Vitamins and Supplements',
         31.35,
@@ -107,7 +107,7 @@ VALUES
         'images/flavettes vitamin c.jpg'
     ),
     (
-        'Fish Oil',
+        'Bio-Life Fish Oil',
         'Sample supplement product for testing the catalogue.',
         'Vitamins and Supplements',
         131.10,
@@ -115,7 +115,7 @@ VALUES
         'images/fish oil.jpg'
     ),
     (
-        'Moisturising Cream',
+        'Cerave Moisturising Cream',
         'Sample skincare product for testing the catalogue.',
         'Skincare',
         58.90,
@@ -123,7 +123,7 @@ VALUES
         'images/cerave moisturizing cream.jpg'
     ),
     (
-        'Hand Sanitizer',
+        'Dettol 2 in 1 Hand Sanitizer',
         'Sample personal care product for testing the catalogue.',
         'Medical Supplies',
         11.50,
@@ -131,7 +131,7 @@ VALUES
         'images/Dettol hand sanitizer 2 in 1.jpg'
     ),
     (
-        'Plasters',
+        'Hansaplast Plaster 100s',
         'Sample first aid product for testing the catalogue.',
         'Medical Supplies',
         15.00,
@@ -151,10 +151,4 @@ WHERE email IN (
 
 SELECT product_id, name, category, price, stock, image_url
 FROM products
-WHERE name IN (
-    'Vitamin C',
-    'Fish Oil',
-    'Moisturising Cream',
-    'Hand Sanitizer',
-    'Plasters'
-);
+ORDER BY product_id;

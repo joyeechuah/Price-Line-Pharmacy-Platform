@@ -119,44 +119,36 @@ body {
     }
 }
 
-/* MAIN HEADER */
+/* Main heading uses the pharmacy logo. */
 .header-hero-section {
-    width: 100%;
-    padding: 28px 20px;
-    background-color: #EAF4F8;
+    padding: 30px 25px;
+    background-color: white;
     border-bottom: 1px solid #C9DFE8;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Price */
-.header-hero-section h1 {
-    margin: 0;
-    padding: 0;
-    color: #084B7B;
-    font-size: 38px;
-    font-weight: bold;
     text-align: center;
 }
 
-/* Line */
-.header-hero-section .brand-line {
-    color: #2DA447;
+/* Main logo matches the login and register pages. */
+.page-logo {
+    display: block;
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
 }
 
-/* Pharmacy */
-.header-hero-section .brand-pharmacy {
-    color: #263F50;
-    font-weight: normal;
+.header-hero-section h1 {
+    display: block;
+    margin: 0 0 10px;
+    color: #0B4F7D;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .header-hero-section .brand-tagline {
-    display: block;
-    margin-top: 14px;
-    color: #426575;
-    font-size: 18px;
-    font-weight: normal;
+    margin: 0;
+    font-size: 16px;
 }
-
 
 button{
     padding: 10px;
@@ -524,22 +516,6 @@ button{
 .home-footer .footer-bottom a:hover {
     background-color: white;
     color: #083B5E;
-}
-
-/* Header on tablets and smaller screens */
-@media (max-width: 1000px) {
-    .header-hero-section {
-        padding: 24px 18px;
-    }
-
-    .header-hero-section h1 {
-        padding: 0;
-        font-size: 30px;
-    }
-
-    .header-hero-section .brand-tagline {
-        font-size: 16px;
-    }
 }
 
 /* Phones */
