@@ -546,8 +546,9 @@ body {
     display: block;
     width: 100%;
     max-width: 320px;
-    height: auto;
+    height: 260px;
     margin: 0 auto 20px;
+    object-fit: contain;
 }
 
 .customer-product-card h3 {
