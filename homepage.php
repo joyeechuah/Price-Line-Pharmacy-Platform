@@ -110,7 +110,7 @@
     <section class="section-2">
         <h2>Vitamins & Supplements</h2>
         <p>Tailored nutrition for every body. Browse our pharmacist-approved supplements to support your family's health at every stage of life.</p>
-        <img src="images/Vitamins&Supplements.png" alt="vitamins&supplements">
+        <img src="images/vitamins&supplements.png" alt="Vitamins and Supplements">
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
@@ -192,7 +192,7 @@
     <section class="section-4">
         <h2>Medical Supplies</h2>
         <p>Find reliable medical supplies for everyday health needs, from first-aid essentials to home healthcare products—conveniently available in one place.</p>
-        <img src="images/Medical Supplies.png" alt="Medical Supplies">
+        <img src="images/medical supplies.png" alt="Medical Supplies">
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
