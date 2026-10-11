@@ -63,7 +63,7 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="users.php">Users</a>
         <a href="products.php">Products</a>
         <a href="orders.php">Orders</a>
-        <a href="consultation.php" aria-current="page">Consultations</a>
+        <a href="consultation.php" class="current-page" aria-current="page">Consultations</a>
         <div class="account-links">
         <form action="../logout.php" method="POST">
         <button type="submit" >
@@ -140,7 +140,7 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 name="action"
                                 value="contacted"
                                 <?php if ($request['status'] === 'contacted') {
-                                    echo 'disabled';
+                                    echo 'class="disabled-button" disabled';
                                 } ?>>
                             Mark as Contacted
                         </button>

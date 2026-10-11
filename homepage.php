@@ -44,7 +44,7 @@ $featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
             <img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
         </a>
-        <a href="homepage.php" aria-current="page">Home</a>
+        <a href="homepage.php" class="current-page" aria-current="page">Home</a>
         <a href="customer/products.php">Products</a>
         <a href="membership-benefits.php">Membership Benefits</a>
         <?php if (!$user || $isCustomer): ?>

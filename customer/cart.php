@@ -123,7 +123,7 @@ foreach ($items as $item) {
             <?php endif; ?>
             <div class="account-links">
                 <?php if (isGuest() || isCustomer()): ?>
-                    <a href="cart.php" class="navbar-cart" aria-current="page">
+                    <a href="cart.php" class="navbar-cart current-page" aria-current="page">
                         <img src="../images/cart-icon.svg" alt="" width="24" height="24">
                         <span>Cart (<?php echo $cartCount; ?>)</span>
                     </a>
@@ -189,8 +189,6 @@ foreach ($items as $item) {
                                     <p class="customer-out-of-stock">This product is now out of stock. Please remove it from your cart.</p>
                                 <?php elseif ($item['quantity'] > $item['stock']): ?>
                                     <p class="customer-out-of-stock">Only <?php echo (int) $item['stock']; ?> available. Please reduce your cart quantity.</p>
-                                <?php else: ?>
-                                    <p class="customer-stock">In stock: <?php echo (int) $item['stock']; ?></p>
                                 <?php endif; ?>
 
                                 <div class="cart-item-actions">
@@ -201,7 +199,7 @@ foreach ($items as $item) {
                                             <label for="quantity-<?php echo (int) $item['product_id']; ?>">Quantity</label>
                                             <input type="number" class="customer-input quantity-input" id="quantity-<?php echo (int) $item['product_id']; ?>" name="quantity" min="1" max="<?php echo max(1, (int) $item['stock']); ?>" value="<?php echo (int) $item['quantity']; ?>" required <?php if ($item['stock'] < 1) echo 'disabled'; ?>>
                                         </div>
-                                        <button type="submit" <?php if ($item['stock'] < 1) echo 'disabled'; ?>>Update Quantity</button>
+                                        <button type="submit" <?php if ($item['stock'] < 1) echo 'class="disabled-button" disabled'; ?>>Update Quantity</button>
                                     </form>
                                     <form action="cart.php" method="POST">
                                         <input type="hidden" name="product_id" value="<?php echo (int) $item['product_id']; ?>">

@@ -73,7 +73,7 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
             </a>
         <a href="dashboard.php">Dashboard</a>
-        <a href="consultation.php" aria-current="page">Consultations</a>
+        <a href="consultation.php" class="current-page" aria-current="page">Consultations</a>
         <div class="account-links">
         <form action="../logout.php" method="POST">
             <button type="submit" >Log Out</button>
@@ -131,7 +131,7 @@ $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <form action="consultation.php?status=<?php echo htmlspecialchars($status); ?>" method="POST" class="consultation-actions">
                         <input type="hidden" name="consultation_id" value="<?php echo htmlspecialchars($request['consultation_id']); ?>">
                         <button type="submit" name="action" value="contacted"
-                            <?php if ($request['status'] === 'contacted') echo 'disabled'; ?>>
+                            <?php if ($request['status'] === 'contacted') echo 'class="disabled-button" disabled'; ?>>
                             Mark as Contacted
                         </button>
                     </form>

@@ -65,7 +65,7 @@ $cartCount = getCartCount($pdo);
                 <?php endif; ?>
                 <?php if (!isGuest()): ?>
                     <?php if (isCustomer()): ?>
-                        <a href="orders.php" aria-current="page">My Orders</a>
+                        <a href="orders.php" class="current-page" aria-current="page">My Orders</a>
                     <?php elseif (isAdmin()): ?>
                         <a href="../admin/dashboard.php">Staff Panel</a>
                     <?php elseif (isPharmacist()): ?>

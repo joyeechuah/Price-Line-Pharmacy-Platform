@@ -74,7 +74,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
             </a>
         <a href="dashboard.php">Dashboard</a>
-        <a href="users.php" aria-current="page">Users</a>
+        <a href="users.php" class="current-page" aria-current="page">Users</a>
         <a href="products.php">Products</a>
         <a href="orders.php">Orders</a>
         <a href="consultation.php">Consultations</a>

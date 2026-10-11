@@ -29,7 +29,7 @@ $name = $_SESSION['user']['name'];
             <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
                 <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
             </a>
-        <a href="dashboard.php" aria-current="page">Dashboard</a>
+        <a href="dashboard.php" class="current-page" aria-current="page">Dashboard</a>
         <a href="users.php">Users</a>
         <a href="products.php">Products</a>
         <a href="orders.php">Orders</a>

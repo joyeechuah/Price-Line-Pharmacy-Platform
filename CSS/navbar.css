@@ -18,10 +18,9 @@
 }
 .pharmacy-navbar a,
 .pharmacy-navbar button {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    height: 38px;
     margin: 0;
     padding: 6px 10px;
     border: 1px solid #B8CEDA;
@@ -31,22 +30,19 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: bold;
+    line-height: 24px;
     text-align: center;
     text-decoration: none;
-    white-space: nowrap;
-    box-sizing: border-box;
 }
 .pharmacy-navbar a:hover {
     border-color: #084B7B;
     background-color: #EAF4F8;
 }
 .pharmacy-navbar .navbar-logo {
-    height: auto;
     margin-right: 12px;
     padding: 0;
     border: none;
     background-color: transparent;
-    flex-shrink: 0;
 }
 .pharmacy-navbar .navbar-logo img {
     display: block;
@@ -66,7 +62,8 @@
     background-color: #1B522B;
     color: white;
 }
-.pharmacy-navbar a[aria-current="page"] {
+.pharmacy-navbar .current-page,
+.pharmacy-navbar .current-page:hover {
     border-color: #084B7B;
     background-color: #084B7B;
     color: white;

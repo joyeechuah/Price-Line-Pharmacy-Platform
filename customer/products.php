@@ -90,7 +90,7 @@ $cartCount = getCartCount($pdo);
                 <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
             </a>
             <a href="../homepage.php">Home</a>
-            <a href="products.php" aria-current="page">Products</a>
+            <a href="products.php" class="current-page" aria-current="page">Products</a>
             <a href="../membership-benefits.php">Membership Benefits</a>
             <?php if (isGuest() || isCustomer()): ?>
                 <a href="consultation.php" class="nav-button" >E-Consult Now</a>
@@ -195,7 +195,7 @@ $cartCount = getCartCount($pdo);
                                 <p class="customer-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
                                 <?php if ($product['stock'] < 1): ?>
                                     <p class="customer-out-of-stock">Out of stock</p>
-                                    <button type="button" disabled>Out of Stock</button>
+                                    <button type="button" class="disabled-button" disabled>Out of Stock</button>
                                 <?php else: ?>
                                     <?php if (!$user || $isCustomer): ?>
                                         <form action="<?php echo htmlspecialchars($pageUrl); ?>" method="POST" class="customer-cart-form">
@@ -205,7 +205,7 @@ $cartCount = getCartCount($pdo);
                                             <button type="submit">Add to Cart</button>
                                         </form>
                                     <?php else: ?>
-                                        <button type="button" disabled>Customer Account Required</button>
+                                        <button type="button" class="disabled-button" disabled>Customer Account Required</button>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             </article>

@@ -78,7 +78,7 @@ $cartCount = getCartCount($pdo);
             <a href="products.php" >Products</a>
             <a href="../membership-benefits.php">Membership Benefits</a>
             <?php if (isGuest() || isCustomer()): ?>
-                <a href="consultation.php" class="nav-button" aria-current="page">E-Consult Now</a>
+                <a href="consultation.php" class="nav-button current-page" aria-current="page">E-Consult Now</a>
             <?php endif; ?>
             <div class="account-links">
                 <?php if (isGuest() || isCustomer()): ?>

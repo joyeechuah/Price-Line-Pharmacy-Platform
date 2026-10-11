@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="tel" id="phone" name="phone" class="customer-input" maxlength="30" autocomplete="tel" placeholder="e.g. 012-3456789" value="<?php echo htmlspecialchars($phone); ?>" required>
 
                         <p>This checkout records your order. No online payment is collected.</p>
-                        <button type="submit" <?php if ($cartIssue !== '') echo 'disabled'; ?>>Place Order</button>
+                        <button type="submit" <?php if ($cartIssue !== '') echo 'class="disabled-button" disabled'; ?>>Place Order</button>
                         <a href="cart.php" class="checkout-back-link">Back to Cart</a>
                     </form>
                 </section>

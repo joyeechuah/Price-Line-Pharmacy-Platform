@@ -176,7 +176,7 @@ if ($id > 0) {
             <a href="dashboard.php">Dashboard</a>
             <a href="users.php">Users</a>
         <?php endif; ?>
-        <a href="products.php" aria-current="page">Products</a>
+        <a href="products.php" class="current-page" aria-current="page">Products</a>
         <?php if (isAdmin()): ?>
             <a href="orders.php">Orders</a>
             <a href="consultation.php">Consultations</a>

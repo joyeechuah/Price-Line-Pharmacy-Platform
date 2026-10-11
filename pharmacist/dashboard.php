@@ -46,7 +46,7 @@ $total = $pending + $contacted;
             <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
                 <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
             </a>
-        <a href="dashboard.php" aria-current="page">Dashboard</a>
+        <a href="dashboard.php" class="current-page" aria-current="page">Dashboard</a>
         <a href="consultation.php">Consultations</a>
         <div class="account-links">
         <form action="../logout.php" method="POST">

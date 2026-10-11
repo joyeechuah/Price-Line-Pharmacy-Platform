@@ -48,7 +48,7 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="dashboard.php">Dashboard</a>
         <a href="users.php">Users</a>
         <a href="products.php">Products</a>
-        <a href="orders.php" aria-current="page">Orders</a>
+        <a href="orders.php" class="current-page" aria-current="page">Orders</a>
         <a href="consultation.php">Consultations</a>
         <div class="account-links">
         <form action="../logout.php" method="POST">

@@ -39,7 +39,7 @@ if (isAdmin()) {
         </a>
         <a href="homepage.php">Home</a>
         <a href="customer/products.php">Products</a>
-        <a href="membership-benefits.php" aria-current="page">Membership Benefits</a>
+        <a href="membership-benefits.php" class="current-page" aria-current="page">Membership Benefits</a>
         <?php if (!$user || $isCustomer): ?>
             <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
         <?php endif; ?>

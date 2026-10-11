@@ -1,9 +1,5 @@
 /* Admin pages */
 
-* {
-    box-sizing: border-box;
-}
-
 html {
     margin: 0;
 }
@@ -39,8 +35,7 @@ body {
 
 /* Main content */
 .admin-content {
-    width: 100%;
-    max-width: 1000px;
+    max-width: 940px;
     margin: 0 auto;
     padding: 30px;
 }
@@ -49,13 +44,6 @@ body {
     margin: 0 0 12px;
     color: #0B4F7D;
     font-size: 26px;
-}
-
-.preview-note {
-    margin: 20px 0;
-    padding: 12px 16px;
-    border-left: 4px solid #0B4F7D;
-    background-color: #EAF4F8;
 }
 
 /* Consultation cards */
@@ -108,34 +96,26 @@ body {
 
 .consultation-actions button {
     padding: 10px 16px;
-    border: 1px solid #BAC4CC;
+    border: 1px solid #0B4F7D;
     border-radius: 8px;
+    background-color: #0B4F7D;
+    color: white;
     font-family: inherit;
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.consultation-actions button:disabled {
+.consultation-actions .disabled-button {
+    border-color: #BAC4CC;
     background-color: #E5E7EB;
     color: #526572;
-    cursor: not-allowed;
-}
-
-.consultation-actions button:not(:disabled) {
-    background-color: #0B4F7D;
-    border-color: #0B4F7D;
-    color: white;
-    cursor: pointer;
+    cursor: default;
 }
 
 .consultation-actions button.delete-button {
     background-color: #A12622;
     border-color: #A12622;
-}
-
-.consultation-actions button:focus-visible {
-    outline: 3px solid #0B4F7D;
-    outline-offset: 3px;
 }
 
 .admin-success {
@@ -148,11 +128,6 @@ body {
     padding: 12px;
     background-color: #FDECEC;
     color: #A12622;
-}
-
-.admin-page a:focus-visible {
-    outline: 3px solid #0B4F7D;
-    outline-offset: 4px;
 }
 
 /* Smaller screens */
@@ -178,6 +153,7 @@ body {
 .dashboard-card {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     padding: 25px;
     border: 1px solid #D5E3E9;
     border-radius: 8px;
@@ -195,7 +171,6 @@ body {
 }
 
 .dashboard-card a {
-    align-self: flex-start;
     margin-top: auto;
     padding: 10px 16px;
     border-radius: 6px;
@@ -218,6 +193,11 @@ body {
     margin: 25px 0;
 }
 
+.admin-page .admin-form {
+    display: flex;
+    flex-direction: column;
+}
+
 .admin-page .admin-form label {
     display: block;
     margin-bottom: 6px;
@@ -228,18 +208,12 @@ body {
 .admin-page .admin-form input,
 .admin-page .admin-form textarea,
 .admin-page .admin-form select {
-    width: 100%;
     padding: 10px;
     margin-bottom: 16px;
     border: 1px solid #71838F;
     border-radius: 6px;
     font-family: inherit;
     font-size: 16px;
-    box-sizing: border-box;
-}
-
-.admin-page .admin-form textarea {
-    resize: vertical;
 }
 
 .admin-page .admin-form button,
@@ -256,6 +230,10 @@ body {
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
+}
+
+.admin-page .admin-form a {
+    margin-top: 12px;
 }
 
 .admin-page .admin-form button:hover,
@@ -296,7 +274,7 @@ body {
 }
 
 .admin-orders .order-items li {
-    padding: 15px;
+    padding: 15px 15px 9px;
     margin-bottom: 12px;
     border: 1px solid #D5E3E9;
     border-radius: 6px;
@@ -305,10 +283,6 @@ body {
 
 .admin-orders .order-items p {
     margin: 0 0 6px;
-}
-
-.admin-orders .order-items p:last-child {
-    margin-bottom: 0;
 }
 
 .admin-orders .order-total {

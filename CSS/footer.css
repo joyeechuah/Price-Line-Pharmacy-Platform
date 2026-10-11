@@ -38,7 +38,3 @@
     color: white;
 }
 
-.site-footer nav a:focus-visible {
-    outline: 3px solid white;
-    outline-offset: 4px;
-}
