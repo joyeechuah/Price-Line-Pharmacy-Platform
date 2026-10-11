@@ -150,97 +150,99 @@ Authentication checks whether someone is logged in, while role checks control ac
 ## Day 5 — Date: 6/10/2026
 
 ### What I planned to do today
-Rearrange the 1 style.css file to different seperated CSS files. Start with products.php
+Reorganise the single style.css file into separate CSS files and start working on products.php.
 
 ### What I actually did
-Rearranged css files
+Separated the CSS into files for different parts of the website. Updated the stylesheet links so the pages could load the correct CSS.
 
 ### Blockers / Challenges
-
+Some styles overlapped, making it difficult to decide which file they belonged in. 
+I also needed to check the stylesheet paths because pages inside folders use different relative paths.
 
 ### What I learned
-
+I learned how separating CSS makes a project easier to organise and maintain. I also learned that incorrect stylesheet paths can cause a page to appear unstyled.
 
 ---
 
 ## Day 6 — Date: 7/10/2026
 
 ### What I planned to do today
-Work on the admin pages especially admin/products.php 
+Work on the admin pages, especially admin/products.php.
 
 ### What I actually did
-Completed admin/products.php
+Completed the product management page with functions to add, view, edit, and delete products. Connected the forms to the database using PDO and improved the form layout.
 
 ### Blockers / Challenges
-
+I encountered a duplicate escape() function error and problems with the product form’s styling. I also needed to handle products that could not be deleted because they were referenced by carts or orders.
 
 ### What I learned
-
+I learned how the four CRUD operations work using INSERT, SELECT, UPDATE, and DELETE. I also learned that shared functions should not be declared twice and that foreign keys protect related database records.
 
 ---
 
 ## Day 7 — Date: 8/10/2026
 
 ### What I planned to do today
-Try completing all admin pages and start working with customers, pharmacists pages.
+Continue the admin pages and begin developing the customer and pharmacist pages.
 
 ### What I actually did
 Added sample staff accounts and products to the database.
-Worked on the admin Users page to display registered accounts and create staff accounts.
-Worked on the admin Orders page to display customer details, purchased items, and order totals.
-Kept the storekeeper role after deleting its separate folder. Updated login redirects and allowed storekeepers to access the shared product-management page.
-Improved the homepage by moving the logo into the navbar and adjusting its size, padding, and spacing.
-Adjusted the hero banners and checked how the search bar could connect to the customer products page.
-Customer and pharmacist pages still need further development.
+Worked on the admin Users and Orders pages.
+Updated storekeeper access to use the shared product-management page.
+Moved the homepage logo into the navbar and adjusted the spacing.
+Adjusted the hero banners and checked the search-bar connection.
 
 ### Blockers / Challenges
-Finding a suitable logo size while keeping the navbar compact required several adjustments.
-Different banner proportions created unwanted gaps inside the carousel.
-The search bar could not display results because the customer products page was still empty.
+Getting the logo size and navbar spacing right took several attempts.
+Different banner sizes caused unwanted gaps.
+Product search could not work yet because the customer products page was unfinished.
 
 ### What I learned
-Login redirects and access checks must work together for each user role.
-CSS padding, margins, and gaps control spacing in different ways.
-A broken-image icon usually indicates a loading or path problem, rather than an image being too large.
+Login redirects and access checks must match each user’s role.
+Padding, margins, and gaps affect page spacing.
+Incorrect image paths can cause broken images.
 
 ---
 
 ## Day 8 — Date: 9/10/2026
 
 ### What I planned to do today
-Start working with customer-access pages
+Start working on customer-access pages, including product browsing and shopping features.
 
 ### What I actually did
-
+Worked on the customer product page with five product categories, search, and Add to Cart buttons. Used image placeholders while preparing the actual product pictures. Continued developing the cart, checkout, order history, and consultation pages.
 
 ### Blockers / Challenges
-
+Connecting the pages required careful checking of product IDs, customer IDs, quantities, and prices. I also found some PHP and CSS unfamiliar and needed simpler explanations suitable for my current level.
 
 ### What I learned
-
+I learned how forms pass information between pages and how related tables support a shopping cart and orders. I also learned why customers should only be able to view their own records and why stock must be checked before placing an order.
 
 ---
 
-## Day 9 — Date: ____
+## Day 9 — Date: 10/10/2026
 
 ### What I planned to do today
-
+Test the existing pages, correct errors, improve the layout, and make the product information consistent across the website.
 
 ### What I actually did
-
+Worked on fixing navigation links, displaying login errors, and improving form validation. Updated the product prices to match the homepage and adjusted the Cart, Log In, and Register buttons. Started working on allowing visitors to add products to a cart before logging in.
 
 ### Blockers / Challenges
-
+The homepage and product page stored their prices differently, so changes were not automatically reflected on both pages. Another challenge was keeping guest-cart items after login while ensuring that checkout required a customer account.
 
 ### What I learned
-
+I learned that information written directly in HTML does not automatically update when database records change. I also learned how PHP sessions can retain cart information between pages and why testing the complete shopping process is important.
 
 ---
 
-## Day 10 — Date: ____
+## Day 10 — Date: 
 
 ### What I planned to do today
-
+Test registration, login, logout, and access for each user role.
+Check product management, guest carts, checkout, orders, and consultations.
+Check navigation links, images, and page layouts.
+Fix any problems found and prepare the project for submission.
 
 ### What I actually did
 
