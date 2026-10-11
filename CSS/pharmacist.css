@@ -37,26 +37,6 @@ body {
     margin: 8px 0 0;
 }
 
-/* Navigation */
-.admin-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px 25px;
-    padding: 15px 30px;
-    background-color: #E4F2E9;
-}
-
-.admin-nav a {
-    color: #0B4F7D;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.admin-nav a:hover,
-.admin-nav a[aria-current="page"] {
-    text-decoration: underline;
-}
-
 /* Main content */
 .admin-content {
     width: 100%;
@@ -158,21 +138,6 @@ body {
     color: #A12622;
 }
 
-/* Footer */
-.admin-footer {
-    padding: 20px;
-    background-color: #E4F2E9;
-    text-align: center;
-}
-
-.admin-footer p {
-    margin: 0 0 8px;
-}
-
-.admin-footer a {
-    color: #0B4F7D;
-}
-
 .admin-page a:focus-visible {
     outline: 3px solid #0B4F7D;
     outline-offset: 4px;
@@ -183,10 +148,6 @@ body {
     .admin-header,
     .admin-content {
         padding: 20px;
-    }
-
-    .admin-nav {
-        padding: 15px 20px;
     }
 
     .consultation-card {
@@ -239,30 +200,6 @@ body {
     .dashboard-cards {
         grid-template-columns: 1fr;
     }
-}
-
-/* Log out button */
-.admin-nav form {
-    margin: 0;
-}
-
-.logout-button {
-    padding: 10px 18px;
-    background-color: #0B4F7D;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.logout-button:hover {
-    background-color: #083B5E;
-}
-/* Consultation filter form */
-.admin-nav {
-    align-items: center;
 }
 
 .admin-page .admin-form-card {

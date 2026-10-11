@@ -1,49 +1,38 @@
 <?php
 // STEP 1: Check login and allow customers only.
 require_once __DIR__ . '/../includes/auth.php';
-if (($_SESSION['user']['role'] ?? '') !== 'customer') {
-    http_response_code(403);
-    exit('Access denied.');
+
+if (!isCustomer()) {
+    // Come back to this page after logging in.
+    $_SESSION['after_login'] = 'customer/orders.php';
+    header('Location: ../login.php');
+    exit;
 }
 
 require_once __DIR__ . '/../config/database.php';
-
-function escape($text) {
-    return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
-}
+require_once __DIR__ . '/../includes/cart.php';
 
 $userId = $_SESSION['user']['user_id'];
-$error = '';
-$orders = [];
-$items = [];
-$cartCount = null;
 $message = $_SESSION['order_message'] ?? '';
 unset($_SESSION['order_message']);
 
-try {
-    // STEP 2: Read only the logged-in customer's orders.
-    $stmt = $pdo->prepare('SELECT order_id, delivery_address, phone, total_amount, created_at
-        FROM orders WHERE user_id = ? ORDER BY created_at DESC, order_id DESC');
-    $stmt->execute([$userId]);
-    $orders = $stmt->fetchAll();
+// STEP 2: Read only the logged-in customer's orders.
+$stmt = $pdo->prepare('SELECT * FROM orders WHERE user_id = ? ORDER BY created_at DESC, order_id DESC');
+$stmt->execute([$userId]);
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // STEP 3: Read only items belonging to those orders.
-    $stmt = $pdo->prepare('SELECT order_items.order_id, order_items.quantity, order_items.price_at_purchase,
+// STEP 3: Read only items belonging to those orders.
+$stmt = $pdo->prepare('SELECT order_items.order_id, order_items.quantity, order_items.price_at_purchase,
         products.name AS product_name
-        FROM order_items
-        JOIN orders ON order_items.order_id = orders.order_id
-        JOIN products ON order_items.product_id = products.product_id
-        WHERE orders.user_id = ? ORDER BY order_items.order_item_id');
-    $stmt->execute([$userId]);
-    $items = $stmt->fetchAll();
+    FROM order_items
+    JOIN orders ON order_items.order_id = orders.order_id
+    JOIN products ON order_items.product_id = products.product_id
+    WHERE orders.user_id = ?
+    ORDER BY order_items.order_item_id');
+$stmt->execute([$userId]);
+$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmt = $pdo->prepare('SELECT COALESCE(SUM(quantity), 0) FROM cart_items WHERE user_id = ?');
-    $stmt->execute([$userId]);
-    $cartCount = (int) $stmt->fetchColumn();
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    $error = 'Unable to load your orders. Please try again later.';
-}
+$cartCount = getCartCount($pdo);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,23 +41,49 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders | Price Line Pharmacy</title>
     <link rel="stylesheet" href="../CSS/customer.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 <body class="customer-page" id="page-top">
-    <header class="customer-header">
-        <nav class="customer-nav" aria-label="Main navigation">
+    <nav class="headbar" aria-label="Main navigation">
+        <div class="pharmacy-navbar">
+            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
+                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
+            </a>
             <a href="../homepage.php">Home</a>
-            <a href="products.php">Products</a>
+            <a href="products.php" >Products</a>
             <a href="../membership-benefits.php">Membership Benefits</a>
-            <a href="consultation.php">Consultations</a>
-            <a href="orders.php" aria-current="page">My Orders</a>
-            <div class="customer-account-links">
-                <a href="cart.php" class="customer-cart-link"><img src="../images/cart-icon.svg" class="customer-cart-icon" alt="" width="28" height="28"> <span>Cart<?php if ($cartCount !== null): ?> (<?php echo $cartCount; ?>)<?php endif; ?></span></a>
-                <form action="../logout.php" method="POST">
-                    <input type="hidden" name="csrf_token" value="<?php echo escape($_SESSION['csrf_token']); ?>">
-                    <button type="submit">Log Out</button>
-                </form>
+            <?php if (isGuest() || isCustomer()): ?>
+                <a href="consultation.php" class="nav-button" >E-Consult Now</a>
+            <?php endif; ?>
+            <div class="account-links">
+                <?php if (isGuest() || isCustomer()): ?>
+                    <a href="cart.php" class="navbar-cart" >
+                        <img src="../images/cart-icon.svg" alt="" width="24" height="24">
+                        <span>Cart (<?php echo $cartCount; ?>)</span>
+                    </a>
+                <?php endif; ?>
+                <?php if (!isGuest()): ?>
+                    <?php if (isCustomer()): ?>
+                        <a href="orders.php" aria-current="page">My Orders</a>
+                    <?php elseif (isAdmin()): ?>
+                        <a href="../admin/dashboard.php">Staff Panel</a>
+                    <?php elseif (isPharmacist()): ?>
+                        <a href="../pharmacist/dashboard.php">Staff Panel</a>
+                    <?php elseif (isStorekeeper()): ?>
+                        <a href="../admin/products.php">Staff Panel</a>
+                    <?php endif; ?>
+                    <form action="../logout.php" method="POST">
+                        <button type="submit">Log Out</button>
+                    </form>
+                <?php else: ?>
+                    <a href="../login.php">Log In</a>
+                    <a href="../register.php" class="register-link">Register</a>
+                <?php endif; ?>
             </div>
-        </nav>
+        </div>
+    </nav>
+    <header class="customer-header">
         <div class="customer-intro">
             <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">
             <h1>My Orders</h1>
@@ -78,11 +93,9 @@ try {
 
     <main class="customer-content">
         <?php if ($message !== ''): ?>
-            <p class="customer-success" role="status"><?php echo escape($message); ?></p>
+            <p class="customer-success" role="status"><?php echo htmlspecialchars($message); ?></p>
         <?php endif; ?>
-        <?php if ($error !== ''): ?>
-            <p class="customer-error" role="alert"><?php echo escape($error); ?></p>
-        <?php elseif (!$orders): ?>
+        <?php if (!$orders): ?>
             <div class="customer-empty">
                 <h2>No orders yet</h2>
                 <p>Your orders will appear here after you complete checkout. Items in your cart are not orders yet.</p>
@@ -93,9 +106,9 @@ try {
                 <?php foreach ($orders as $order): ?>
                     <article class="customer-record-card">
                         <h2>Order #<?php echo (int) $order['order_id']; ?></h2>
-                        <p><strong>Order Date:</strong> <?php echo escape($order['created_at']); ?></p>
-                        <p><strong>Phone:</strong> <?php echo escape($order['phone']); ?></p>
-                        <p><strong>Delivery Address:</strong><br><?php echo nl2br(escape($order['delivery_address'])); ?></p>
+                        <p><strong>Order Date:</strong> <?php echo htmlspecialchars($order['created_at']); ?></p>
+                        <p><strong>Phone:</strong> <?php echo htmlspecialchars($order['phone']); ?></p>
+                        <p><strong>Delivery Address:</strong><br><?php echo nl2br(htmlspecialchars($order['delivery_address'])); ?></p>
 
                         <h3>Purchased Items</h3>
                         <ul class="customer-order-items">
@@ -104,7 +117,7 @@ try {
                                 <?php if ($item['order_id'] == $order['order_id']): ?>
                                     <?php $hasItems = true; ?>
                                     <li>
-                                        <p><strong><?php echo escape($item['product_name']); ?></strong></p>
+                                        <p><strong><?php echo htmlspecialchars($item['product_name']); ?></strong></p>
                                         <p>Quantity: <?php echo (int) $item['quantity']; ?></p>
                                         <!-- Use the price saved at checkout, not today's product price. -->
                                         <p>Price Each: RM <?php echo number_format((float) $item['price_at_purchase'], 2); ?></p>
@@ -123,16 +136,6 @@ try {
         <?php endif; ?>
     </main>
 
-    <footer class="customer-footer">
-        <p class="customer-brand">Price <span>Line</span> Pharmacy</p>
-        <p>Better health. Brighter tomorrow.</p>
-        <nav aria-label="Footer navigation">
-            <a href="../homepage.php">Home</a>
-            <a href="products.php">Products</a>
-            <a href="consultation.php">Consultations</a>
-            <a href="#page-top">Back to Top</a>
-        </nav>
-        <p>&copy; <?php echo date('Y'); ?> Price Line Pharmacy.</p>
-    </footer>
+<?php $footerBase = '../'; require __DIR__ . '/../includes/footer.php'; ?>
 </body>
 </html>

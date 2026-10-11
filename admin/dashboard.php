@@ -2,14 +2,13 @@
 require_once __DIR__ . '/../includes/auth.php';
 
 // Only admins can open this page.
-if (($_SESSION['user']['role'] ?? '') !== 'admin') {
-    http_response_code(403);
-    exit('Access denied.');
+if (!isAdmin()) {
+    header('Location: ../login.php');
+    exit;
 }
 
 $name = $_SESSION['user']['name'];
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,35 +18,43 @@ $name = $_SESSION['user']['name'];
     <title>Admin Dashboard | Price Line Pharmacy</title>
 
     <link rel="stylesheet" href="../CSS/admin.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 
-<body class="admin-page">
+<body class="admin-page" id="page-top">
 
-    <header class="admin-header">
-        <h1>Price Line Pharmacy</h1>
-        <p>Admin Panel</p>
-    </header>
-
-    <nav class="admin-nav" aria-label="Admin navigation">
+    <nav class="headbar" aria-label="Admin navigation">
+        <div class="pharmacy-navbar">
+            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
+                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
+            </a>
         <a href="dashboard.php" aria-current="page">Dashboard</a>
         <a href="users.php">Users</a>
         <a href="products.php">Products</a>
         <a href="orders.php">Orders</a>
         <a href="consultation.php">Consultations</a>
 
+        <div class="account-links">
         <form action="../logout.php" method="POST">
-            <input type="hidden" name="csrf_token"
-                   value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
-            <button type="submit" class="logout-button">Log Out</button>
+            <button type="submit" >Log Out</button>
         </form>
+        </div>
+        </div>
     </nav>
+    <header class="admin-header">
+        <h1>Price Line Pharmacy</h1>
+        <p>Admin Panel</p>
+    </header>
+
+
 
     <main class="admin-content">
         <h2>Admin Dashboard</h2>
 
         <p>
             Welcome,
-            <?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>!
+            <?php echo htmlspecialchars($name); ?>!
         </p>
 
         <p>Select an area to manage.</p>
@@ -56,7 +63,7 @@ $name = $_SESSION['user']['name'];
 
             <article class="dashboard-card">
                 <h3>Users</h3>
-                <p>Manage customer accounts and create staff accounts.</p>
+                <p>View registered accounts and create staff accounts.</p>
                 <a href="users.php">Manage Users</a>
             </article>
 
@@ -81,10 +88,7 @@ $name = $_SESSION['user']['name'];
         </div>
     </main>
 
-    <footer class="admin-footer">
-        <p>&copy; 2026 Price Line Pharmacy.</p>
-        <a href="../homepage.php">Back to Home</a>
-    </footer>
+<?php $footerBase = '../'; require __DIR__ . '/../includes/footer.php'; ?>
 
 </body>
 </html>

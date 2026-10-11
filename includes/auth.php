@@ -1,13 +1,32 @@
 <?php
 session_start();
 
-// Send visitors to login if they are not logged in.
-if (!isset($_SESSION['user'])) {
-    header('Location: ../login.php');
-    exit;
+// Returns true if no user is logged in.
+function isGuest()
+{
+    return !isset($_SESSION['user']);
 }
 
-// Create a security token for forms, including logout.
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+// Returns true only if the current user's role is 'customer'.
+function isCustomer()
+{
+    return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'customer';
+}
+
+// Returns true only if the current user's role is 'admin'.
+function isAdmin()
+{
+    return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin';
+}
+
+// Returns true only if the current user's role is 'pharmacist'.
+function isPharmacist()
+{
+    return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'pharmacist';
+}
+
+// Returns true only if the current user's role is 'storekeeper'.
+function isStorekeeper()
+{
+    return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'storekeeper';
 }

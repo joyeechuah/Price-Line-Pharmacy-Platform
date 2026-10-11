@@ -1,78 +1,43 @@
 <?php
+// STEP 1: Check login and allow admins only.
 require_once __DIR__ . '/../includes/auth.php';
 
-// Only admins can open this page.
-if (($_SESSION['user']['role'] ?? '') !== 'admin') {
-    http_response_code(403);
-    exit('Access denied.');
+if (!isAdmin()) {
+    header('Location: ../login.php');
+    exit;
 }
 
-// 2. Connect to the database.
+// STEP 2: Connect to the database.
 require_once __DIR__ . '/../config/database.php';
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$error = '';
-$requests = [];
+// STEP 3: Update or delete a request when a button is clicked.
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+    $id     = (int) ($_POST['consultation_id'] ?? 0);
 
-// Safely display text in HTML.
-function escape($text) {
-    return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
-}
-
-// Create a security token for the forms.
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
-try {
-    // 3. Check the form when a button is clicked.
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $token = $_POST['csrf_token'] ?? '';
-        $action = $_POST['action'] ?? '';
-        $id = filter_input(INPUT_POST, 'consultation_id', FILTER_VALIDATE_INT);
-
-        if (!is_string($token) ||
-            !hash_equals($_SESSION['csrf_token'], $token)) {
-            $error = 'Please reload the page and try again.';
-        } elseif (!$id || $id < 1) {
-            $error = 'Invalid request ID.';
-        } elseif ($action !== 'contacted' && $action !== 'delete') {
-            $error = 'Invalid action.';
-        }
-
-        // Change the database only if the form is valid.
-        if ($error === '') {
-            if ($action === 'contacted') {
-                $sql = "UPDATE consultations
-                        SET status = 'contacted'
-                        WHERE consultation_id = ?";
-            } else {
-                $sql = "DELETE FROM consultations
-                        WHERE consultation_id = ?";
-            }
-
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$id]);
-
-            // Reload without repeating the action on refresh.
-            header('Location: consultation.php');
-            exit;
-        }
+    if ($action === 'contacted') {
+        $stmt = $pdo->prepare("UPDATE consultations SET status = 'contacted' WHERE consultation_id = ?");
+        $stmt->execute([$id]);
     }
 
-    // 4. Load requests to display on the page.
-    $sql = "SELECT consultations.*, users.name AS customer_name
-            FROM consultations
-            JOIN users ON consultations.user_id = users.user_id
-            ORDER BY consultations.created_at DESC";
+    if ($action === 'delete') {
+        $stmt = $pdo->prepare('DELETE FROM consultations WHERE consultation_id = ?');
+        $stmt->execute([$id]);
+    }
 
-    $stmt = $pdo->query($sql);
-    $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    $error = 'A database error occurred. Please try again.';
+    // Reload without repeating the action on refresh.
+    header('Location: consultation.php');
+    exit;
 }
+
+// STEP 4: Load requests to display on the page.
+$stmt = $pdo->query(
+    'SELECT consultations.*, users.name AS customer_name
+     FROM consultations
+     JOIN users ON consultations.user_id = users.user_id
+     ORDER BY consultations.created_at DESC'
+);
+$requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,31 +48,37 @@ try {
     <title>Consultation Requests | Price Line Pharmacy</title>
 
     <link rel="stylesheet" href="../CSS/admin.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 
-<body class="admin-page">
+<body class="admin-page" id="page-top">
 
-    <header class="admin-header">
-        <h1>Price Line Pharmacy</h1>
-        <p>Admin Panel</p>
-    </header>
-
-    <nav class="admin-nav" aria-label="Admin navigation">
+    <nav class="headbar" aria-label="Admin navigation">
+        <div class="pharmacy-navbar">
+            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
+                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
+            </a>
         <a href="dashboard.php">Dashboard</a>
         <a href="users.php">Users</a>
         <a href="products.php">Products</a>
         <a href="orders.php">Orders</a>
         <a href="consultation.php" aria-current="page">Consultations</a>
+        <div class="account-links">
         <form action="../logout.php" method="POST">
-        <input type="hidden"
-           name="csrf_token"
-           value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
-
-        <button type="submit" class="logout-button">
+        <button type="submit" >
         Log Out
     </button>
     </form>
+        </div>
+        </div>
     </nav>
+    <header class="admin-header">
+        <h1>Price Line Pharmacy</h1>
+        <p>Admin Panel</p>
+    </header>
+
+
 
     <main class="admin-content">
         <h2>Consultation Requests</h2>
@@ -116,13 +87,7 @@ try {
             Review customer questions and update their contact status.
         </p>
 
-        <?php if ($error !== ''): ?>
-            <p class="admin-error" role="alert">
-                <?php echo escape($error); ?>
-            </p>
-        <?php endif; ?>
-
-        <?php if (empty($requests) && $error === ''): ?>
+        <?php if (empty($requests)): ?>
             <p>No consultation requests yet.</p>
         <?php endif; ?>
 
@@ -132,34 +97,34 @@ try {
 
                 <article class="consultation-card">
                     <h3>
-                        Request #<?php echo escape($request['consultation_id']); ?>
+                        Request #<?php echo htmlspecialchars($request['consultation_id']); ?>
                     </h3>
 
                     <p>
                         <strong>Customer:</strong>
-                        <?php echo escape($request['customer_name']); ?>
+                        <?php echo htmlspecialchars($request['customer_name']); ?>
                     </p>
 
                     <p>
                         <strong>Contact Number:</strong>
-                        <?php echo escape($request['contact_number']); ?>
+                        <?php echo htmlspecialchars($request['contact_number']); ?>
                     </p>
 
                     <p>
                         <strong>Preferred Date and Time:</strong>
-                        <?php echo escape($request['preferred_datetime']); ?>
+                        <?php echo htmlspecialchars($request['preferred_datetime']); ?>
                     </p>
 
                     <p>
                         <strong>Question:</strong><br>
-                        <?php echo nl2br(escape($request['question'])); ?>
+                        <?php echo nl2br(htmlspecialchars($request['question'])); ?>
                     </p>
 
                     <p>
                         <strong>Status:</strong>
 
                         <span class="consultation-status">
-                            <?php echo escape(ucfirst($request['status'])); ?>
+                            <?php echo htmlspecialchars(ucfirst($request['status'])); ?>
                         </span>
                     </p>
 
@@ -168,12 +133,8 @@ try {
                           class="consultation-actions">
 
                         <input type="hidden"
-                               name="csrf_token"
-                               value="<?php echo escape($_SESSION['csrf_token']); ?>">
-
-                        <input type="hidden"
                                name="consultation_id"
-                               value="<?php echo escape($request['consultation_id']); ?>">
+                               value="<?php echo htmlspecialchars($request['consultation_id']); ?>">
 
                         <button type="submit"
                                 name="action"
@@ -199,10 +160,7 @@ try {
         </div>
     </main>
 
-    <footer class="admin-footer">
-        <p>&copy; 2026 Price Line Pharmacy.</p>
-        <a href="../homepage.php">Back to Home</a>
-    </footer>
+<?php $footerBase = '../'; require __DIR__ . '/../includes/footer.php'; ?>
 
 </body>
 </html>

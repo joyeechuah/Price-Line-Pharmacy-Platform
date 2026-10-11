@@ -36,7 +36,8 @@ CREATE TABLE products (
     category VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL DEFAULT 0,
-    image_url VARCHAR(255) NOT NULL
+    image_url VARCHAR(255) NOT NULL,
+    is_active TINYINT(1) NOT NULL DEFAULT 1
 );
 
 CREATE TABLE cart_items (

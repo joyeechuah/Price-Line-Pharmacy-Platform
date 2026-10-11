@@ -1,3 +1,22 @@
+<?php
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/includes/cart.php';
+
+$user = $_SESSION['user'] ?? null;
+$isCustomer = isCustomer();
+$cartCount = getCartCount($pdo);
+
+// Staff members get a link back to their own panel.
+$staffPage = '';
+if (isAdmin()) {
+    $staffPage = 'admin/dashboard.php';
+} elseif (isPharmacist()) {
+    $staffPage = 'pharmacist/dashboard.php';
+} elseif (isStorekeeper()) {
+    $staffPage = 'admin/products.php';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +26,8 @@
     <title>Membership Benefits | Price Line Pharmacy</title>
 
     <link rel="stylesheet" href="CSS/membership-benefits.css">
+    <link rel="stylesheet" href="CSS/navbar.css">
+    <link rel="stylesheet" href="CSS/footer.css">
 </head>
 
 <body class="membership-page" id="page-top">
@@ -19,11 +40,27 @@
         <a href="homepage.php">Home</a>
         <a href="customer/products.php">Products</a>
         <a href="membership-benefits.php" aria-current="page">Membership Benefits</a>
-        <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
+        <?php if (!$user || $isCustomer): ?>
+            <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
+        <?php endif; ?>
         <div class="account-links">
-       <a href="login.php">Log In</a>
-       <a href="register.php" class="register-link">Register</a>
-       </div>
+            <?php if (!$user || $isCustomer): ?>
+                <a href="customer/cart.php" class="navbar-cart"><img src="images/cart-icon.svg" alt="" width="24" height="24"> Cart (<?php echo $cartCount; ?>)</a>
+            <?php endif; ?>
+            <?php if ($user): ?>
+                <?php if ($isCustomer): ?>
+                    <a href="customer/orders.php">My Orders</a>
+                <?php else: ?>
+                    <a href="<?php echo htmlspecialchars($staffPage); ?>">Staff Panel</a>
+                <?php endif; ?>
+                <form action="logout.php" method="POST">
+                    <button type="submit">Log Out</button>
+                </form>
+            <?php else: ?>
+                <a href="login.php">Log In</a>
+                <a href="register.php" class="register-link">Register</a>
+            <?php endif; ?>
+        </div>
     </div>
     </nav>
 
@@ -33,19 +70,17 @@
 
             <h1>Membership Benefits</h1>
 
-            <p>
-                Create a customer account to shop for health essentials,
-                view your orders, and request a pharmacist consultation.
-            </p>
-
-            <a href="register.php" class="membership-button">
-                Create an Account
-            </a>
-
-            <p class="membership-login">
-                Already have an account?
-                <a href="login.php">Log In</a>
-            </p>
+            <?php if (!$user): ?>
+                <p>Create a customer account to shop for health essentials, view your orders, and request a pharmacist consultation.</p>
+                <a href="register.php" class="membership-button">Create an Account</a>
+                <p class="membership-login">Already have an account? <a href="login.php">Log In</a></p>
+            <?php elseif ($isCustomer): ?>
+                <p>Welcome, <?php echo htmlspecialchars($user['name']); ?>! Use your account to shop, view your orders, and request a pharmacist consultation.</p>
+                <a href="customer/products.php" class="membership-button">Browse Products</a>
+            <?php else: ?>
+                <p>Explore the benefits available to customer accounts.</p>
+                <a href="<?php echo htmlspecialchars($staffPage); ?>" class="membership-button">Back to Staff Panel</a>
+            <?php endif; ?>
         </section>
 
         <section class="membership-benefits"
@@ -92,6 +127,7 @@
         <section class="membership-steps"
                  aria-labelledby="join-heading">
 
+            <?php if (!$user): ?>
             <h2 id="join-heading">How to Get Started</h2>
 
             <ol>
@@ -103,47 +139,15 @@
             <a href="register.php" class="membership-button">
                 Register Now
             </a>
+            <?php else: ?>
+                <h2 id="join-heading">Explore Your Next Step</h2>
+                <p>Browse the catalogue and discover our customer services.</p>
+                <a href="customer/products.php" class="membership-button">Explore Products</a>
+            <?php endif; ?>
         </section>
     </main>
 
-    <footer class="home-footer">
-    <div class="footer-content">
-
-        <div class="footer-brand">
-            <h2>Price <span>Line</span> Pharmacy</h2>
-            <p>Your Health, Delivered Fast and Safe.</p>
-            <p>
-                Explore everyday health essentials,
-                discover membership benefits and
-                request a pharmacist consultation.
-            </p>
-        </div>
-
-        <div class="footer-links">
-            <h3>Explore</h3>
-            <a href="homepage.php">Home</a>
-            <a href="customer/products.php">Products</a>
-            <a href="membership-benefits.php">
-                Membership Benefits
-            </a>
-            <a href="customer/consultation.php">
-                E-Consult Now
-            </a>
-        </div>
-
-        <div class="footer-links">
-            <h3>Your Account</h3>
-            <a href="login.php">Log In</a>
-            <a href="register.php">Create an Account</a>
-        </div>
-
-    </div>
-
-    <div class="footer-bottom">
-        <p>&copy; 2026 Price Line Pharmacy.</p>
-        <a href="#page-top">Back to top ↑</a>
-    </div>
-    </footer>
+<?php require __DIR__ . '/includes/footer.php'; ?>
 
 </body>
 </html>
