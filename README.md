@@ -1,6 +1,6 @@
 # Mini Project Journal
 
-**Student Name: Chuah Jo Yee
+**Student Name: Chuah Jo Yee**
 **Project Title: Pharmacy Online Platform
 **Start Date: 24/9/2026
 **End Date: 14/10/2026
