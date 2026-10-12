@@ -36,8 +36,7 @@ CREATE TABLE products (
     category VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     stock INT NOT NULL DEFAULT 0,
-    image_url VARCHAR(255) NOT NULL,
-    is_active TINYINT(1) NOT NULL DEFAULT 1
+    image_url VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE cart_items (
@@ -138,6 +137,38 @@ VALUES
         15.00,
         25,
         'images/hansaplast plaster.jpg'
+    ),
+    (
+        'Blackmores Multivitamins and Minerals 120s',
+        'Sample vitamin product for testing the catalogue.',
+        'Vitamins and Supplements',
+        105.90,
+        20,
+        'images/blackmoresmy2020multivitaminmineral120tabs200mlwithcode1-Photoroom.png'
+    ),
+    (
+        'La Roche-Posay Toleriane Caring Wash 200ml',
+        'Sample skincare product for testing the catalogue.',
+        'Skincare',
+        68.50,
+        15,
+        'images/La roche posay gentle cleanser.png'
+    ),
+    (
+        'Neutrogena Hydro Boost Water Gel 50g',
+        'Sample skincare product for testing the catalogue.',
+        'Skincare',
+        58.00,
+        15,
+        'images/neutrogena hydro boost water gel.jpg'
+    ),
+    (
+        'Omron Blood Pressure Monitor HEM-7121',
+        'Sample medical supply product for testing the catalogue.',
+        'Medical Supplies',
+        338.00,
+        10,
+        'images/omron blood pressure monitor.jpg'
     );
 
 COMMIT;
