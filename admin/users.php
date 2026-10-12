@@ -66,29 +66,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 <body class="admin-page" id="page-top">
-    <nav class="headbar" aria-label="Admin navigation">
-        <div class="pharmacy-navbar">
-            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
-                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
-            </a>
-        <a href="dashboard.php">Dashboard</a>
-        <a href="users.php" class="current-page" aria-current="page">Users</a>
-        <a href="products.php">Products</a>
-        <a href="orders.php">Orders</a>
-        <a href="consultation.php">Consultations</a>
-        <div class="account-links">
-        <form action="../logout.php" method="POST">
-            <button type="submit" >Log Out</button>
-        </form>
-        </div>
-        </div>
-    </nav>
-    <header class="admin-header">
-        <h1>Price Line Pharmacy</h1>
-        <p>Admin Panel</p>
-    </header>
-
-
+<?php $currentPage = 'users'; require __DIR__ . '/../includes/staff-navbar.php'; ?>
 
     <main class="admin-content admin-users">
         <h2>Manage Users</h2>
@@ -110,7 +88,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <input type="text" id="name" name="name" maxlength="100" autocomplete="off" required value="<?php echo htmlspecialchars($name); ?>">
 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" maxlength="225" autocomplete="off" required value="<?php echo htmlspecialchars($email); ?>">
+                <input type="email" id="email" name="email" maxlength="255" autocomplete="off" required value="<?php echo htmlspecialchars($email); ?>">
 
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" minlength="8" maxlength="72" autocomplete="new-password" aria-describedby="password-help" required>

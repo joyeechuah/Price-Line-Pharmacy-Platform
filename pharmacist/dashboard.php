@@ -41,26 +41,7 @@ $total = $pending + $contacted;
 </head>
 <!-- Reuse the existing panel styles to keep the pages consistent. -->
 <body class="admin-page" id="page-top">
-    <nav class="headbar" aria-label="Pharmacist navigation">
-        <div class="pharmacy-navbar">
-            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
-                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
-            </a>
-        <a href="dashboard.php" class="current-page" aria-current="page">Dashboard</a>
-        <a href="consultation.php">Consultations</a>
-        <div class="account-links">
-        <form action="../logout.php" method="POST">
-            <button type="submit" >Log Out</button>
-        </form>
-        </div>
-        </div>
-    </nav>
-    <header class="admin-header">
-        <h1>Price Line Pharmacy</h1>
-        <p>Pharmacist Panel</p>
-    </header>
-
-
+<?php $currentPage = 'dashboard'; require __DIR__ . '/../includes/staff-navbar.php'; ?>
 
     <main class="admin-content">
         <h2>Pharmacist Dashboard</h2>

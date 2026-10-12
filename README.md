@@ -236,7 +236,7 @@ I learned that information written directly in HTML does not automatically updat
 
 ---
 
-## Day 10 — Date: 
+## Day 10 — Date: 11/10/2026
 
 ### What I planned to do today
 Test registration, login, logout, and access for each user role.
@@ -245,30 +245,48 @@ Check navigation links, images, and page layouts.
 Fix any problems found and prepare the project for submission.
 
 ### What I actually did
-
+Tested the main website functions, including guest carts, checkout, order history, and staff access.
+Connected the homepage product information to the database so names and prices stay consistent with the products page.
+Fixed login redirects, product images in the cart, search behaviour, and consultation filters.
+Added product archiving so purchased products can be hidden without removing their order history.
+Made the navbars and main logo styling more consistent across pages.
 
 ### Blockers / Challenges
-
+The homepage and products page previously used different sources for product information.
+Some pages still displayed Log In and Register after a user had logged in.
+Products linked to carts or orders could not be deleted directly because of database relationships.
+Checkout and guest-cart merging contained unfamiliar code that required more explanation.
 
 ### What I learned
-
+Reading product information from one database helps prevent inconsistent prices.
+Sessions help pages recognise logged-in users and remember where they wanted to go.
+Archiving products keeps previous orders available.
+A shared CSS file makes navbar styling easier to maintain.
+Testing different user roles and complete workflows helps find problems that are easy to miss when checking individual pages.
 
 ---
 
-## Day 11 — Date: ____
+## Day 11 — Date: 12/10/2026
 
 ### What I planned to do today
-
+Add the remaining products and update the database file.
+Check the project against my proposal and the marking scheme.
+Tidy the code so it is simple enough for me to explain during the code review and presentation.
 
 ### What I actually did
-
+Added new products and product images, and re-created the products table so the shop has five categories.
+Combined the product archiving column into pharmacy.sql so only one database file is needed.
+Compared my proposal with the finished project and updated the proposal to match, including the guest cart, the is_active column, and the user account features.
+Moved the repeated navbar into two shared files, one for the shop pages and one for the staff panels, the same way the footer is shared.
+Rewrote shorthand code as normal if and else blocks so it is easier to read.
+Tested every role again, including registration, login, cart, checkout, consultations, and product management.
+Removed two unnecessary help messages from the product management page.
 
 ### Blockers / Challenges
-
+MySQL Workbench only showed 10 product rows at first because of the row limit, not because products were missing.
 
 ### What I learned
-
-
+Debugging skills.
 ---
 
 ## Day 12 — Date: ____

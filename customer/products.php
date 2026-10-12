@@ -84,44 +84,7 @@ $cartCount = getCartCount($pdo);
     <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 <body class="customer-page" id="page-top">
-    <nav class="headbar" aria-label="Main navigation">
-        <div class="pharmacy-navbar">
-            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
-                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
-            </a>
-            <a href="../homepage.php">Home</a>
-            <a href="products.php" class="current-page" aria-current="page">Products</a>
-            <a href="../membership-benefits.php">Membership Benefits</a>
-            <?php if (isGuest() || isCustomer()): ?>
-                <a href="consultation.php" class="nav-button" >E-Consult Now</a>
-            <?php endif; ?>
-            <div class="account-links">
-                <?php if (isGuest() || isCustomer()): ?>
-                    <a href="cart.php" class="navbar-cart" >
-                        <img src="../images/cart-icon.svg" alt="" width="24" height="24">
-                        <span>Cart (<?php echo $cartCount; ?>)</span>
-                    </a>
-                <?php endif; ?>
-                <?php if (!isGuest()): ?>
-                    <?php if (isCustomer()): ?>
-                        <a href="orders.php" >My Orders</a>
-                    <?php elseif (isAdmin()): ?>
-                        <a href="../admin/dashboard.php">Staff Panel</a>
-                    <?php elseif (isPharmacist()): ?>
-                        <a href="../pharmacist/dashboard.php">Staff Panel</a>
-                    <?php elseif (isStorekeeper()): ?>
-                        <a href="../admin/products.php">Staff Panel</a>
-                    <?php endif; ?>
-                    <form action="../logout.php" method="POST">
-                        <button type="submit">Log Out</button>
-                    </form>
-                <?php else: ?>
-                    <a href="../login.php">Log In</a>
-                    <a href="../register.php" class="register-link">Register</a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </nav>
+<?php $navBase = '../'; $currentPage = 'products'; require __DIR__ . '/../includes/navbar.php'; ?>
     <header class="customer-header">
 
         <div class="customer-intro">
@@ -163,9 +126,7 @@ $cartCount = getCartCount($pdo);
         <?php endif; ?>
         <?php foreach ($sections as $section): ?>
             <?php
-            if ($category !== '' && $category !== $section['id']) {
-                continue;
-            }
+            // Collect the products that belong to this section.
             $sectionProducts = [];
             foreach ($products as $product) {
                 if ($product['category'] === $section['category']) {
@@ -173,46 +134,56 @@ $cartCount = getCartCount($pdo);
                 }
             }
             ?>
-            <section class="customer-category" id="<?php echo htmlspecialchars($section['id']); ?>" aria-labelledby="heading-<?php echo htmlspecialchars($section['id']); ?>">
-                <a class="customer-banner" href="#items-<?php echo htmlspecialchars($section['id']); ?>" aria-label="Browse <?php echo htmlspecialchars($section['name']); ?>">
-                    <img src="<?php echo htmlspecialchars($section['banner']); ?>" alt="<?php echo htmlspecialchars($section['name']); ?>" width="2172" height="724" loading="lazy">
-                </a>
-                <div class="customer-category-heading" id="items-<?php echo htmlspecialchars($section['id']); ?>">
-                    <h2 id="heading-<?php echo htmlspecialchars($section['id']); ?>"><?php echo htmlspecialchars($section['name']); ?></h2>
-                    <p><?php echo count($sectionProducts); ?> <?php echo count($sectionProducts) === 1 ? 'product' : 'products'; ?></p>
-                </div>
-
-                <?php if (!$sectionProducts): ?>
-                    <p class="customer-empty"><?php echo $search !== '' ? 'No products match your search in this category.' : 'No products available in this category yet.'; ?></p>
-                <?php else: ?>
-                    <div class="customer-product-grid">
-                        <?php foreach ($sectionProducts as $product): ?>
-                            <article class="customer-product-card">
-                                <!-- Placeholder for now. Later, use the product's saved image_url here. -->
-                                <img class="customer-product-image" src="../<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" loading="lazy">
-                                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                                <p class="customer-description"><?php echo htmlspecialchars($product['description']); ?></p>
-                                <p class="customer-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
-                                <?php if ($product['stock'] < 1): ?>
-                                    <p class="customer-out-of-stock">Out of stock</p>
-                                    <button type="button" class="disabled-button" disabled>Out of Stock</button>
-                                <?php else: ?>
-                                    <?php if (!$user || $isCustomer): ?>
-                                        <form action="<?php echo htmlspecialchars($pageUrl); ?>" method="POST" class="customer-cart-form">
-                                            <input type="hidden" name="product_id" value="<?php echo (int) $product['product_id']; ?>">
-                                            <label for="quantity-<?php echo (int) $product['product_id']; ?>">Quantity</label>
-                                            <input type="number" class="customer-input quantity-input" id="quantity-<?php echo (int) $product['product_id']; ?>" name="quantity" min="1" max="<?php echo (int) $product['stock']; ?>" value="1" required>
-                                            <button type="submit">Add to Cart</button>
-                                        </form>
-                                    <?php else: ?>
-                                        <button type="button" class="disabled-button" disabled>Customer Account Required</button>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            </article>
-                        <?php endforeach; ?>
+            <!-- Show every section, or only the one chosen in the category filter. -->
+            <?php if ($category === '' || $category === $section['id']): ?>
+                <section class="customer-category" id="<?php echo htmlspecialchars($section['id']); ?>" aria-labelledby="heading-<?php echo htmlspecialchars($section['id']); ?>">
+                    <a class="customer-banner" href="#items-<?php echo htmlspecialchars($section['id']); ?>" aria-label="Browse <?php echo htmlspecialchars($section['name']); ?>">
+                        <img src="<?php echo htmlspecialchars($section['banner']); ?>" alt="<?php echo htmlspecialchars($section['name']); ?>" width="2172" height="724" loading="lazy">
+                    </a>
+                    <div class="customer-category-heading" id="items-<?php echo htmlspecialchars($section['id']); ?>">
+                        <h2 id="heading-<?php echo htmlspecialchars($section['id']); ?>"><?php echo htmlspecialchars($section['name']); ?></h2>
+                        <?php if (count($sectionProducts) === 1): ?>
+                            <p>1 product</p>
+                        <?php else: ?>
+                            <p><?php echo count($sectionProducts); ?> products</p>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
-            </section>
+
+                    <?php if (empty($sectionProducts)): ?>
+                        <?php if ($search !== ''): ?>
+                            <p class="customer-empty">No products match your search in this category.</p>
+                        <?php else: ?>
+                            <p class="customer-empty">No products available in this category yet.</p>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <div class="customer-product-grid">
+                            <?php foreach ($sectionProducts as $product): ?>
+                                <article class="customer-product-card">
+                                    <img class="customer-product-image" src="../<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" loading="lazy">
+                                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                                    <p class="customer-description"><?php echo htmlspecialchars($product['description']); ?></p>
+                                    <p class="customer-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                                    <?php if ($product['stock'] < 1): ?>
+                                        <p class="customer-out-of-stock">Out of stock</p>
+                                        <button type="button" class="disabled-button" disabled>Out of Stock</button>
+                                    <?php else: ?>
+                                        <?php if (!$user || $isCustomer): ?>
+                                            <form action="<?php echo htmlspecialchars($pageUrl); ?>" method="POST" class="customer-cart-form">
+                                                <input type="hidden" name="product_id" value="<?php echo (int) $product['product_id']; ?>">
+                                                <label for="quantity-<?php echo (int) $product['product_id']; ?>">Quantity</label>
+                                                <input type="number" class="customer-input quantity-input" id="quantity-<?php echo (int) $product['product_id']; ?>" name="quantity" min="1" max="<?php echo (int) $product['stock']; ?>" value="1" required>
+                                                <button type="submit">Add to Cart</button>
+                                            </form>
+                                        <?php else: ?>
+                                            <button type="button" class="disabled-button" disabled>Customer Account Required</button>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </article>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </section>
+            <?php endif; ?>
         <?php endforeach; ?>
     </main>
 

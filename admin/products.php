@@ -141,11 +141,6 @@ $stmt = $pdo->query('SELECT * FROM products ORDER BY product_id DESC');
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Set the labels here so the HTML below stays easy to read.
-$panelTitle = 'Storekeeper Panel';
-if (isAdmin()) {
-    $panelTitle = 'Admin Panel';
-}
-
 $formTitle = 'Add product';
 $buttonText = 'Add Product';
 if ($id > 0) {
@@ -164,31 +159,7 @@ if ($id > 0) {
     <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 <body class="admin-page" id="page-top">
-    <nav class="headbar" aria-label="Admin navigation">
-        <div class="pharmacy-navbar">
-            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
-                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
-            </a>
-        <?php if (isAdmin()): ?>
-            <a href="dashboard.php">Dashboard</a>
-            <a href="users.php">Users</a>
-        <?php endif; ?>
-        <a href="products.php" class="current-page" aria-current="page">Products</a>
-        <?php if (isAdmin()): ?>
-            <a href="orders.php">Orders</a>
-            <a href="consultation.php">Consultations</a>
-        <?php endif; ?>
-        <div class="account-links">
-        <form action="../logout.php" method="POST">
-            <button type="submit" >Log Out</button>
-        </form>
-        </div>
-        </div>
-    </nav>
-    <header class="admin-header">
-        <h1>Price Line Pharmacy</h1>
-        <p><?php echo htmlspecialchars($panelTitle); ?></p>
-    </header>
+<?php $currentPage = 'products'; require __DIR__ . '/../includes/staff-navbar.php'; ?>
 
     <main class="admin-content admin-products">
         <h2>Manage Products</h2>
@@ -222,13 +193,11 @@ if ($id > 0) {
                 <input id="stock" name="stock" type="number" min="0" max="2147483647" step="1" required value="<?php echo htmlspecialchars($stock); ?>">
                 <label for="image_url">Image path</label>
                 <input id="image_url" name="image_url" maxlength="255" placeholder="images/vitamin-c.png" required value="<?php echo htmlspecialchars($image_url); ?>">
-                <p>Place the image in your project's images folder, then enter its path here.</p>
                 <button type="submit"><?php echo htmlspecialchars($buttonText); ?></button>
                 <?php if ($id > 0): ?><a href="products.php">Cancel editing</a><?php endif; ?>
             </form>
         </section>
         <h3>Product list</h3>
-        <p>Removing a product clears it from carts. Purchased products are archived to keep order history.</p>
         <?php if ($error === '' && empty($products)): ?><p>No products yet. Add your first product above.</p><?php endif; ?>
         <div class="consultation-list">
             <?php foreach ($products as $product): ?>
@@ -238,7 +207,11 @@ if ($id > 0) {
                 <p><strong>Category:</strong> <?php echo htmlspecialchars($product['category']); ?></p>
                 <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
                 <p><strong>Price:</strong> RM <?php echo number_format((float) $product['price'], 2); ?></p>
-                <p><strong>Status:</strong> <?php echo $product['is_active'] ? 'Active' : 'Archived'; ?></p>
+                <?php if ($product['is_active']): ?>
+                    <p><strong>Status:</strong> Active</p>
+                <?php else: ?>
+                    <p><strong>Status:</strong> Archived</p>
+                <?php endif; ?>
                 <p><strong>Stock:</strong> <?php echo htmlspecialchars($product['stock']); ?></p>
                 <p><strong>Image path:</strong> <?php echo htmlspecialchars($product['image_url']); ?></p>
                 <div class="product-actions">

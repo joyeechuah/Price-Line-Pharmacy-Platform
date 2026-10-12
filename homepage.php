@@ -3,19 +3,7 @@ require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/cart.php';
 
-$user = $_SESSION['user'] ?? null;
-$isCustomer = isCustomer();
 $cartCount = getCartCount($pdo);
-
-// Staff members get a link back to their own panel.
-$staffPage = '';
-if (isAdmin()) {
-    $staffPage = 'admin/dashboard.php';
-} elseif (isPharmacist()) {
-    $staffPage = 'pharmacist/dashboard.php';
-} elseif (isStorekeeper()) {
-    $staffPage = 'admin/products.php';
-}
 
 // Homepage cards always use the same names and prices as the shop.
 $stmt = $pdo->query('SELECT name, category, price, image_url FROM products WHERE is_active = 1 ORDER BY product_id');
@@ -39,37 +27,7 @@ $featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="CSS/footer.css">
 </head>
 <body id="page-top">
-    <nav class="headbar" aria-label="Main navigation">
-    <div class="pharmacy-navbar">
-        <a href="homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
-            <img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
-        </a>
-        <a href="homepage.php" class="current-page" aria-current="page">Home</a>
-        <a href="customer/products.php">Products</a>
-        <a href="membership-benefits.php">Membership Benefits</a>
-        <?php if (!$user || $isCustomer): ?>
-            <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
-        <?php endif; ?>
-        <div class="account-links">
-            <?php if (!$user || $isCustomer): ?>
-                <a href="customer/cart.php" class="navbar-cart"><img src="images/cart-icon.svg" alt="" width="24" height="24"> Cart (<?php echo $cartCount; ?>)</a>
-            <?php endif; ?>
-            <?php if ($user): ?>
-                <?php if ($isCustomer): ?>
-                    <a href="customer/orders.php">My Orders</a>
-                <?php else: ?>
-                    <a href="<?php echo htmlspecialchars($staffPage); ?>">Staff Panel</a>
-                <?php endif; ?>
-                <form action="logout.php" method="POST">
-                    <button type="submit">Log Out</button>
-                </form>
-            <?php else: ?>
-                <a href="login.php">Log In</a>
-                <a href="register.php" class="register-link">Register</a>
-            <?php endif; ?>
-        </div>
-    </div>
-    </nav>
+<?php $currentPage = 'home'; require __DIR__ . '/includes/navbar.php'; ?>
     <header class="header">
     <div class="header-hero-section">
     <h1 class="brand-heading"><img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">Home</h1>
@@ -143,16 +101,18 @@ $featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
+        <!-- Show the first three products in this category. -->
         <?php $shown = 0; ?>
         <?php foreach ($featured as $product): ?>
-            <?php if ($product['category'] !== 'Vitamins and Supplements') continue; ?>
-            <article class="product-card">
-                <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-                <h4><?php echo htmlspecialchars($product['name']); ?></h4>
-                <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
-                <a href="customer/products.php?category=vitamins&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
-            </article>
-            <?php $shown++; if ($shown === 3) break; ?>
+            <?php if ($product['category'] === 'Vitamins and Supplements' && $shown < 3): ?>
+                <article class="product-card">
+                    <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                    <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                    <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                    <a href="customer/products.php?category=vitamins&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
+                </article>
+                <?php $shown++; ?>
+            <?php endif; ?>
         <?php endforeach; ?>
         <?php if ($shown === 0): ?>
             <p>No products available in this category yet.</p>
@@ -166,16 +126,18 @@ $featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
+        <!-- Show the first three products in this category. -->
         <?php $shown = 0; ?>
         <?php foreach ($featured as $product): ?>
-            <?php if ($product['category'] !== 'Skincare') continue; ?>
-            <article class="product-card">
-                <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-                <h4><?php echo htmlspecialchars($product['name']); ?></h4>
-                <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
-                <a href="customer/products.php?category=skincare&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
-            </article>
-            <?php $shown++; if ($shown === 3) break; ?>
+            <?php if ($product['category'] === 'Skincare' && $shown < 3): ?>
+                <article class="product-card">
+                    <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                    <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                    <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                    <a href="customer/products.php?category=skincare&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
+                </article>
+                <?php $shown++; ?>
+            <?php endif; ?>
         <?php endforeach; ?>
         <?php if ($shown === 0): ?>
             <p>No products available in this category yet.</p>
@@ -189,16 +151,18 @@ $featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h3 class="hot-items-heading">HOT ITEMS</h3>
 
     <div class="hot-items">
+        <!-- Show the first three products in this category. -->
         <?php $shown = 0; ?>
         <?php foreach ($featured as $product): ?>
-            <?php if ($product['category'] !== 'Medical Supplies') continue; ?>
-            <article class="product-card">
-                <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-                <h4><?php echo htmlspecialchars($product['name']); ?></h4>
-                <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
-                <a href="customer/products.php?category=medical&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
-            </article>
-            <?php $shown++; if ($shown === 3) break; ?>
+            <?php if ($product['category'] === 'Medical Supplies' && $shown < 3): ?>
+                <article class="product-card">
+                    <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                    <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                    <p class="product-price">RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                    <a href="customer/products.php?category=medical&amp;q=<?php echo urlencode($product['name']); ?>" class="product-link">Browse Products</a>
+                </article>
+                <?php $shown++; ?>
+            <?php endif; ?>
         <?php endforeach; ?>
         <?php if ($shown === 0): ?>
             <p>No products available in this category yet.</p>

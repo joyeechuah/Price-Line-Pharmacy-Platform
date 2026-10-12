@@ -32,37 +32,7 @@ if (isAdmin()) {
 
 <body class="membership-page" id="page-top">
 
-    <nav class="headbar" aria-label="Main navigation">
-    <div class="pharmacy-navbar">
-        <a href="homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
-            <img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
-        </a>
-        <a href="homepage.php">Home</a>
-        <a href="customer/products.php">Products</a>
-        <a href="membership-benefits.php" class="current-page" aria-current="page">Membership Benefits</a>
-        <?php if (!$user || $isCustomer): ?>
-            <a href="customer/consultation.php" class="nav-button">E-Consult Now</a>
-        <?php endif; ?>
-        <div class="account-links">
-            <?php if (!$user || $isCustomer): ?>
-                <a href="customer/cart.php" class="navbar-cart"><img src="images/cart-icon.svg" alt="" width="24" height="24"> Cart (<?php echo $cartCount; ?>)</a>
-            <?php endif; ?>
-            <?php if ($user): ?>
-                <?php if ($isCustomer): ?>
-                    <a href="customer/orders.php">My Orders</a>
-                <?php else: ?>
-                    <a href="<?php echo htmlspecialchars($staffPage); ?>">Staff Panel</a>
-                <?php endif; ?>
-                <form action="logout.php" method="POST">
-                    <button type="submit">Log Out</button>
-                </form>
-            <?php else: ?>
-                <a href="login.php">Log In</a>
-                <a href="register.php" class="register-link">Register</a>
-            <?php endif; ?>
-        </div>
-    </div>
-    </nav>
+<?php $currentPage = 'membership'; require __DIR__ . '/includes/navbar.php'; ?>
 
     <main>
         <section class="membership-intro">

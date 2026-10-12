@@ -69,44 +69,7 @@ $cartCount = getCartCount($pdo);
     <link rel="stylesheet" href="../CSS/footer.css">
 </head>
 <body class="customer-page" id="page-top">
-    <nav class="headbar" aria-label="Main navigation">
-        <div class="pharmacy-navbar">
-            <a href="../homepage.php" class="navbar-logo" aria-label="Price Line Pharmacy home">
-                <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy logo">
-            </a>
-            <a href="../homepage.php">Home</a>
-            <a href="products.php" >Products</a>
-            <a href="../membership-benefits.php">Membership Benefits</a>
-            <?php if (isGuest() || isCustomer()): ?>
-                <a href="consultation.php" class="nav-button current-page" aria-current="page">E-Consult Now</a>
-            <?php endif; ?>
-            <div class="account-links">
-                <?php if (isGuest() || isCustomer()): ?>
-                    <a href="cart.php" class="navbar-cart" >
-                        <img src="../images/cart-icon.svg" alt="" width="24" height="24">
-                        <span>Cart (<?php echo $cartCount; ?>)</span>
-                    </a>
-                <?php endif; ?>
-                <?php if (!isGuest()): ?>
-                    <?php if (isCustomer()): ?>
-                        <a href="orders.php" >My Orders</a>
-                    <?php elseif (isAdmin()): ?>
-                        <a href="../admin/dashboard.php">Staff Panel</a>
-                    <?php elseif (isPharmacist()): ?>
-                        <a href="../pharmacist/dashboard.php">Staff Panel</a>
-                    <?php elseif (isStorekeeper()): ?>
-                        <a href="../admin/products.php">Staff Panel</a>
-                    <?php endif; ?>
-                    <form action="../logout.php" method="POST">
-                        <button type="submit">Log Out</button>
-                    </form>
-                <?php else: ?>
-                    <a href="../login.php">Log In</a>
-                    <a href="../register.php" class="register-link">Register</a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </nav>
+<?php $navBase = '../'; $currentPage = 'consultation'; require __DIR__ . '/../includes/navbar.php'; ?>
     <header class="customer-header">
         <div class="customer-intro">
             <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">
@@ -143,7 +106,7 @@ $cartCount = getCartCount($pdo);
         <section class="customer-history" aria-labelledby="history-heading">
             <h2 id="history-heading">My Requests</h2>
             <p>Pending means your request is awaiting contact. Contacted means staff have marked it as contacted.</p>
-            <?php if (!$requests): ?>
+            <?php if (empty($requests)): ?>
                 <p class="customer-empty">You have not sent any consultation requests yet.</p>
             <?php else: ?>
                 <div class="customer-history-list">

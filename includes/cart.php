@@ -31,7 +31,12 @@ function addToCart($pdo, $userId, $productId, $quantity)
 // After login, move the guest's items into the customer's saved cart.
 function saveGuestCart($pdo, $userId)
 {
-    foreach ($_SESSION['guest_cart'] ?? [] as $productId => $quantity) {
+    // Nothing to move if the guest did not add any products.
+    if (!isset($_SESSION['guest_cart'])) {
+        return;
+    }
+
+    foreach ($_SESSION['guest_cart'] as $productId => $quantity) {
         // Skip products that were removed from the shop.
         $stmt = $pdo->prepare('SELECT product_id FROM products WHERE product_id = ? AND is_active = 1');
         $stmt->execute([$productId]);
@@ -52,5 +57,13 @@ function getCartCount($pdo)
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return (int) $row['total'];
     }
-    return array_sum($_SESSION['guest_cart'] ?? []);
+
+    // Guests: add up the quantities saved in the session.
+    $count = 0;
+    if (isset($_SESSION['guest_cart'])) {
+        foreach ($_SESSION['guest_cart'] as $quantity) {
+            $count += $quantity;
+        }
+    }
+    return $count;
 }

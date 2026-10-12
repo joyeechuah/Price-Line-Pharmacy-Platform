@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    id="email"
                    name="email"
                    placeholder="Enter your email"
-                   maxlength="225"
+                   maxlength="255"
                    autocomplete="email"
                    required>
 
