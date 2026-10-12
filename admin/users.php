@@ -31,8 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($name) || empty($email) || empty($password)) {
         $error = 'All fields are required.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Enter a valid email address.';
     } elseif (strlen($password) < 8) {
         $error = 'Use at least 8 characters for the password.';
     } elseif ($role !== 'admin' && $role !== 'pharmacist' && $role !== 'storekeeper') {

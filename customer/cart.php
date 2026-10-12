@@ -197,7 +197,7 @@ foreach ($items as $item) {
                                         <input type="hidden" name="action" value="update">
                                         <div class="cart-quantity-field">
                                             <label for="quantity-<?php echo (int) $item['product_id']; ?>">Quantity</label>
-                                            <input type="number" class="customer-input quantity-input" id="quantity-<?php echo (int) $item['product_id']; ?>" name="quantity" min="1" max="<?php echo max(1, (int) $item['stock']); ?>" value="<?php echo (int) $item['quantity']; ?>" required <?php if ($item['stock'] < 1) echo 'disabled'; ?>>
+                                            <input type="number" class="customer-input quantity-input" id="quantity-<?php echo (int) $item['product_id']; ?>" name="quantity" min="1" max="<?php echo (int) $item['stock']; ?>" value="<?php echo (int) $item['quantity']; ?>" required <?php if ($item['stock'] < 1) echo 'disabled'; ?>>
                                         </div>
                                         <button type="submit" <?php if ($item['stock'] < 1) echo 'class="disabled-button" disabled'; ?>>Update Quantity</button>
                                     </form>

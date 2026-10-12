@@ -30,8 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // STEP 7: Check the submitted information.
     if (empty($name) || empty($email) || empty($password)) {
         $error = 'Please complete all fields.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Please enter a valid email address.';
     } elseif (strlen($password) < 8) {
         $error = 'Your password must have at least 8 characters.';
     } elseif ($password !== $confirmPassword) {

@@ -75,9 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'All fields are required.';
         } elseif ($price < 0 || $stock < 0) {
             $error = 'The price and stock cannot be negative.';
-        } elseif (strpos($image_url, 'images/') !== 0 || !is_file(__DIR__ . '/../' . $image_url)) {
-            // The path must start with images/ and the file must exist.
-            $error = 'Choose an existing image in the images folder, for example images/vitamin-c.png.';
         } elseif ($id > 0) {
             // STEP 7 - UPDATE: Save the changes to an existing product.
             $stmt = $pdo->prepare(
