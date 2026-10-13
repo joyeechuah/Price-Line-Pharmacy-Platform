@@ -186,7 +186,6 @@ if ($id > 0) {
                         <option value="<?php echo htmlspecialchars($choice); ?>" <?php if ($category === $choice) echo 'selected'; ?>><?php echo htmlspecialchars($choice); ?></option>
                     <?php endforeach; ?>
                 </select>
-                <p class="form-help">Use one of these categories so customers can find the product.</p>
                 <label for="price">Price (RM)</label>
                 <input id="price" name="price" type="number" min="0" max="99999999.99" step="0.01" required value="<?php echo htmlspecialchars($price); ?>">
                 <label for="stock">Stock quantity</label>
@@ -201,32 +200,35 @@ if ($id > 0) {
         <?php if ($error === '' && empty($products)): ?><p>No products yet. Add your first product above.</p><?php endif; ?>
         <div class="consultation-list">
             <?php foreach ($products as $product): ?>
-            <article class="consultation-card">
-                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                <p><strong>Product ID:</strong> <?php echo htmlspecialchars($product['product_id']); ?></p>
-                <p><strong>Category:</strong> <?php echo htmlspecialchars($product['category']); ?></p>
-                <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
-                <p><strong>Price:</strong> RM <?php echo number_format((float) $product['price'], 2); ?></p>
-                <?php if ($product['is_active']): ?>
-                    <p><strong>Status:</strong> Active</p>
-                <?php else: ?>
-                    <p><strong>Status:</strong> Archived</p>
-                <?php endif; ?>
-                <p><strong>Stock:</strong> <?php echo htmlspecialchars($product['stock']); ?></p>
-                <p><strong>Image path:</strong> <?php echo htmlspecialchars($product['image_url']); ?></p>
-                <div class="product-actions">
-                    <a class="admin-edit-link" href="products.php?edit=<?php echo htmlspecialchars($product['product_id']); ?>">Edit Product</a>
-                    <form action="products.php" method="POST">
-                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
-                        <?php if (!$product['is_active']): ?>
-                        <button type="submit" name="action" value="restore">Restore Product</button>
-                        <?php else: ?>
-                        <button type="submit" name="action" value="delete" class="product-delete-button"
-                                onclick="return confirm('Remove this product from the shop and all carts? Purchased products will be archived.');">
-                            Remove Product
-                        </button>
-                        <?php endif; ?>
-                    </form>
+            <article class="consultation-card product-row">
+                <img class="product-image" src="../<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                <div class="product-details">
+                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                    <p><strong>Product ID:</strong> <?php echo htmlspecialchars($product['product_id']); ?></p>
+                    <p><strong>Category:</strong> <?php echo htmlspecialchars($product['category']); ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
+                    <p><strong>Price:</strong> RM <?php echo number_format((float) $product['price'], 2); ?></p>
+                    <?php if ($product['is_active']): ?>
+                        <p><strong>Status:</strong> Active</p>
+                    <?php else: ?>
+                        <p><strong>Status:</strong> Archived</p>
+                    <?php endif; ?>
+                    <p><strong>Stock:</strong> <?php echo htmlspecialchars($product['stock']); ?></p>
+                    <p><strong>Image path:</strong> <?php echo htmlspecialchars($product['image_url']); ?></p>
+                    <div class="product-actions">
+                        <a class="admin-edit-link" href="products.php?edit=<?php echo htmlspecialchars($product['product_id']); ?>">Edit Product</a>
+                        <form action="products.php" method="POST">
+                            <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
+                            <?php if (!$product['is_active']): ?>
+                            <button type="submit" name="action" value="restore">Restore Product</button>
+                            <?php else: ?>
+                            <button type="submit" name="action" value="delete" class="product-delete-button"
+                                    onclick="return confirm('Remove this product from the shop and all carts? Purchased products will be archived.');">
+                                Remove Product
+                            </button>
+                            <?php endif; ?>
+                        </form>
+                    </div>
                 </div>
             </article>
             <?php endforeach; ?>

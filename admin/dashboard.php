@@ -40,7 +40,7 @@ $name = $_SESSION['user']['name'];
 
             <article class="dashboard-card">
                 <h3>Users</h3>
-                <p>View registered accounts and create staff accounts.</p>
+                <p>Create staff accounts, and edit or remove users.</p>
                 <a href="users.php">Manage Users</a>
             </article>
 
@@ -52,7 +52,7 @@ $name = $_SESSION['user']['name'];
 
             <article class="dashboard-card">
                 <h3>Orders</h3>
-                <p>View customer orders and purchased items.</p>
+                <p>View customer orders and update their status.</p>
                 <a href="orders.php">View Orders</a>
             </article>
 

@@ -21,9 +21,9 @@ $stmt = $pdo->prepare('SELECT * FROM orders WHERE user_id = ? ORDER BY created_a
 $stmt->execute([$userId]);
 $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// STEP 3: Read only items belonging to those orders.
+// STEP 3: Read only items belonging to those orders, with their product names and images.
 $stmt = $pdo->prepare('SELECT order_items.order_id, order_items.quantity, order_items.price_at_purchase,
-        products.name AS product_name
+        products.name AS product_name, products.image_url
     FROM order_items
     JOIN orders ON order_items.order_id = orders.order_id
     JOIN products ON order_items.product_id = products.product_id
@@ -50,7 +50,7 @@ $cartCount = getCartCount($pdo);
         <div class="customer-intro">
             <img src="../images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">
             <h1>My Orders</h1>
-            <p>View your order history and purchased items.</p>
+            <p>View your order history, order status and purchased items.</p>
         </div>
     </header>
 
@@ -69,6 +69,15 @@ $cartCount = getCartCount($pdo);
                 <?php foreach ($orders as $order): ?>
                     <article class="customer-record-card">
                         <h2>Order #<?php echo (int) $order['order_id']; ?></h2>
+                        <p><strong>Status:</strong>
+                            <?php if ($order['status'] === 'delivered'): ?>
+                                <span class="customer-status customer-status-delivered">Delivered</span>
+                            <?php elseif ($order['status'] === 'shipped'): ?>
+                                <span class="customer-status customer-status-shipped">Shipped</span>
+                            <?php else: ?>
+                                <span class="customer-status">Pending</span>
+                            <?php endif; ?>
+                        </p>
                         <p><strong>Order Date:</strong> <?php echo htmlspecialchars($order['created_at']); ?></p>
                         <p><strong>Phone:</strong> <?php echo htmlspecialchars($order['phone']); ?></p>
                         <p><strong>Delivery Address:</strong><br><?php echo nl2br(htmlspecialchars($order['delivery_address'])); ?></p>
@@ -79,12 +88,15 @@ $cartCount = getCartCount($pdo);
                             <?php foreach ($items as $item): ?>
                                 <?php if ($item['order_id'] == $order['order_id']): ?>
                                     <?php $hasItems = true; ?>
-                                    <li>
-                                        <p><strong><?php echo htmlspecialchars($item['product_name']); ?></strong></p>
-                                        <p>Quantity: <?php echo (int) $item['quantity']; ?></p>
-                                        <!-- Use the price saved at checkout, not today's product price. -->
-                                        <p>Price Each: RM <?php echo number_format((float) $item['price_at_purchase'], 2); ?></p>
-                                        <p>Subtotal: RM <?php echo number_format($item['price_at_purchase'] * $item['quantity'], 2); ?></p>
+                                    <li class="customer-order-item">
+                                        <img class="customer-order-image" src="../<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>">
+                                        <div>
+                                            <p><strong><?php echo htmlspecialchars($item['product_name']); ?></strong></p>
+                                            <p>Quantity: <?php echo (int) $item['quantity']; ?></p>
+                                            <!-- Use the price saved at checkout, not today's product price. -->
+                                            <p>Price Each: RM <?php echo number_format((float) $item['price_at_purchase'], 2); ?></p>
+                                            <p>Subtotal: RM <?php echo number_format($item['price_at_purchase'] * $item['quantity'], 2); ?></p>
+                                        </div>
                                     </li>
                                 <?php endif; ?>
                             <?php endforeach; ?>

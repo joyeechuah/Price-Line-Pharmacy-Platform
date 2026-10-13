@@ -29,10 +29,6 @@ $featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body id="page-top">
 <?php $currentPage = 'home'; require __DIR__ . '/includes/navbar.php'; ?>
     <header class="header">
-    <div class="header-hero-section">
-    <h1 class="brand-heading"><img src="images/PriceLine Pharmacy Logo in Blue and Green.png" alt="Price Line Pharmacy" class="page-logo">Home</h1>
-    <p class="brand-tagline">Your Health, Delivered Fast and Safe.</p>
-    </div>
     <div id="pharmacyCarousel"
      class="carousel slide right-header"
      role="region"
@@ -76,10 +72,10 @@ $featured = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </button>
     </div>
     <div class="hero-content">
-    <h2>
+    <h1>
     Browse health essentials, place an order online,
     and request a pharmacist consultation.
-    </h2>
+    </h1>
     <form action="customer/products.php" method="GET" role="search" class="search-form">
     <label for="site-search">Search Products</label>
     <div class="search-bar">

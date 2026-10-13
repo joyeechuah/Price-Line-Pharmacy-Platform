@@ -6,35 +6,6 @@ body {
     margin: 0;
 }
 
-.header-hero-section {
-    padding: 20px 25px;
-    background-color: white;
-    border-bottom: 1px solid #C9DFE8;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-.page-logo {
-    display: block;
-    width: 120px;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto 20px;
-}
-
-.header-hero-section h1 {
-    display: block;
-    margin: 0 0 10px;
-    color: #0B4F7D;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.header-hero-section .brand-tagline {
-    margin: 0;
-    font-size: 16px;
-}
-
 button{
     padding: 10px;
     border-radius: 8px;
@@ -195,7 +166,7 @@ button{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.hero-content h2 {
+.hero-content h1 {
     max-width: 900px;
     margin: 0 auto 25px;
     color: #0B4F7D;

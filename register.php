@@ -11,8 +11,10 @@ if (!isGuest()) {
 // STEP 2: Include the database connection.
 require_once __DIR__ . '/config/database.php';
 
-// STEP 3: Set up a variable to hold any error message.
+// STEP 3: Set up the starting values for the error message and the form.
 $error = '';
+$name = '';
+$email = '';
 
 // STEP 4: Run this code only when the form is submitted.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -93,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text"
                    id="name"
                    name="name"
+                   value="<?php echo htmlspecialchars($name); ?>"
                    placeholder="Enter your full name"
                    maxlength="100"
                    autocomplete="name"
@@ -102,6 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="email"
                    id="email"
                    name="email"
+                   value="<?php echo htmlspecialchars($email); ?>"
                    placeholder="Enter your email"
                    maxlength="255"
                    autocomplete="email"

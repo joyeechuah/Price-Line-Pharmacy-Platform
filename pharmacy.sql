@@ -56,6 +56,11 @@ CREATE TABLE orders (
     delivery_address VARCHAR(500) NOT NULL,
     phone VARCHAR(30) NOT NULL,
     total_amount DECIMAL(10, 2) NOT NULL,
+    status ENUM(
+        'pending',
+        'shipped',
+        'delivered'
+    ) NOT NULL DEFAULT 'pending',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (user_id) REFERENCES users(user_id)

@@ -46,7 +46,7 @@ Customers often need to visit a pharmacy in person to buy everyday medicines and
 
 | Role | Description |
 |---|---|
-| Admin | Full access to the staff panel. Views user accounts, creates staff accounts, manages products, views all orders and handles consultation requests. |
+| Admin | Full access to the staff panel. Manages user accounts (creates staff accounts, edits and removes users), manages products, views all orders and updates their status, and handles consultation requests. |
 | Pharmacist | Views customer consultation requests and marks them as contacted after calling the customer. Can view products but not change them. |
 | Storekeeper | Adds, edits and removes products and keeps stock levels up to date. |
 | Customer | Browses and searches products, adds them to the cart, checks out, views their own orders and submits consultation requests. |
@@ -63,11 +63,11 @@ Customers often need to visit a pharmacy in person to buy everyday medicines and
 | Add to cart and manage cart | ❌ | ❌ | ❌ | ✅ | ✅ |
 | Checkout (place an order) | ❌ | ❌ | ❌ | ✅ | ❌ |
 | View own orders | ❌ | ❌ | ❌ | ✅ | ❌ |
-| View all orders | ✅ | ❌ | ❌ | ❌ | ❌ |
+| View all orders and update order status | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Manage products and stock | ✅ | ❌ | ✅ | ❌ | ❌ |
 | Submit consultation request | ❌ | ❌ | ❌ | ✅ | ❌ |
 | Handle consultation requests | ✅ | ✅ | ❌ | ❌ | ❌ |
-| View users and create staff accounts | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Manage user accounts | ✅ | ❌ | ❌ | ❌ | ❌ |
 
 A guest can fill a cart before logging in. The cart is saved to their account when they log in or register, and they must be logged in as a customer to check out.
 
@@ -108,10 +108,10 @@ A guest can fill a cart before logging in. The cart is saved to their account wh
 
 | Data / Entity | Create | Read | Update | Delete |
 |---|---|---|---|---|
-| Users | Guest (registers as Customer), Admin (creates staff accounts) | Admin (all users) | None | None |
+| Users | Guest (registers as Customer), Admin (creates staff accounts) | Admin (all users) | Admin (name, email and role) | Admin (accounts with orders are kept) |
 | Products | Admin, Storekeeper | Everyone, including Guest (active products only) | Admin, Storekeeper | Admin, Storekeeper (archived instead if already ordered) |
 | Cart items | Guest, Customer | Guest, Customer (own cart) | Guest, Customer (change quantity) | Guest, Customer (remove item) |
-| Orders | Customer (at checkout) | Customer (own orders), Admin (all orders) | None | None |
+| Orders | Customer (at checkout) | Customer (own orders), Admin (all orders) | Admin (order status: pending, shipped, delivered) | None |
 | Consultation requests | Customer | Customer (own requests), Pharmacist, Admin | Pharmacist, Admin (mark as contacted) | Admin |
 
 A guest's cart is kept in the session. A customer's cart is kept in the `cart_items` table.
@@ -156,6 +156,7 @@ erDiagram
         varchar delivery_address
         varchar phone
         decimal total_amount
+        enum status "pending, shipped, delivered"
         datetime created_at
     }
     ORDER_ITEMS {
@@ -207,8 +208,8 @@ flowchart LR
         UC7(["Submit consultation request"])
         UC8(["Manage products and stock"])
         UC9(["Handle consultation requests"])
-        UC10(["View users and create staff accounts"])
-        UC11(["View all orders"])
+        UC10(["Manage user accounts"])
+        UC11(["View all orders and update status"])
     end
 
     G --- UC1
