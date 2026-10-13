@@ -59,7 +59,7 @@ $cartCount = getCartCount($pdo);
             <p class="customer-success" role="status"><?php echo htmlspecialchars($message); ?></p>
         <?php endif; ?>
         <?php if (empty($orders)): ?>
-            <div class="customer-empty">
+            <div class="customer-empty cart-empty">
                 <h2>No orders yet</h2>
                 <p>Your orders will appear here after you complete checkout. Items in your cart are not orders yet.</p>
                 <a href="products.php" class="customer-shop-link">Browse Products</a>
