@@ -53,8 +53,11 @@ if (isAdmin()) {
             <?php endif; ?>
         </section>
 
+        <hr>
+
         <section class="membership-benefits"
-                 aria-labelledby="benefits-heading">
+                aria-labelledby="benefits-heading">
+            
 
             <h2 id="benefits-heading">Your Member Benefits</h2>
 

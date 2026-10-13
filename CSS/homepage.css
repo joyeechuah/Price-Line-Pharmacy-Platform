@@ -6,7 +6,6 @@ body {
     margin: 0;
 }
 
-/* Main heading uses the pharmacy logo. */
 .header-hero-section {
     padding: 20px 25px;
     background-color: white;
@@ -15,7 +14,6 @@ body {
     text-align: center;
 }
 
-/* Main logo matches the login and register pages. */
 .page-logo {
     display: block;
     width: 120px;
@@ -43,7 +41,6 @@ button{
     cursor: pointer;
 }
 
-/* Let each banner keep its original proportions. */
 #pharmacyCarousel {
     width: 100%;
     max-width: 1270px;
@@ -56,7 +53,6 @@ button{
     height: auto;
 }
 
-/* Override your general button padding */
 #pharmacyCarousel .carousel-control-prev,
 #pharmacyCarousel .carousel-control-next {
     width: 8%;
@@ -64,7 +60,6 @@ button{
     border-radius: 0;
 }
 
-/* Make arrows visible over light images */
 #pharmacyCarousel .carousel-control-prev-icon,
 #pharmacyCarousel .carousel-control-next-icon {
     width: 38px;
@@ -192,7 +187,6 @@ button{
     background-color: #083B5E;
 }
 
-/* Description and search section */
 .hero-content {
     max-width: 1270px;
     padding: 35px 30px;
@@ -214,7 +208,6 @@ button{
     margin: 0 auto;
 }
 
-/* Category section */
 .section-2, .section-3, .section-4 {
     max-width: 1270px;
     padding: 35px 30px;
@@ -236,7 +229,6 @@ button{
     font-size: 16px;
 }
 
-/* Category banner only */
 .section-2 > img , .section-3 > img , .section-4 > img{
     display: block;
     width: 100%;
@@ -244,7 +236,6 @@ button{
     border-radius: 12px;
 }
 
-/* Hot Items heading */
 .section-2 .hot-items-heading , .section-3 .hot-items-heading , .section-4 .hot-items-heading {
     margin: 30px 0 20px;
     padding: 12px 16px;

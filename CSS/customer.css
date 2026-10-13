@@ -117,7 +117,6 @@ body {
     color: #0B4F7D;
 }
 
-/* Main logo matches the login and register pages. */
 .page-logo {
     display: block;
     width: 120px;
@@ -237,6 +236,8 @@ body {
     border-radius: 12px;
 }
 
+/* scroll-margin-top leaves space above the heading when a banner link jumps to it, */
+/* so the sticky navbar does not cover it. The navbar is taller on small screens. */
 .customer-category-heading {
     display: flex;
     flex-wrap: wrap;
@@ -244,6 +245,7 @@ body {
     align-items: center;
     gap: 10px;
     margin: 25px 0 20px;
+    scroll-margin-top: 90px;
 }
 
 .customer-category-heading h2 {
@@ -351,6 +353,10 @@ body {
     .customer-product-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .customer-category-heading {
+        scroll-margin-top: 140px;
+    }
 }
 
 /* Phones */
@@ -358,6 +364,10 @@ body {
     .customer-intro,
     .customer-content {
         padding: 18px 15px;
+    }
+
+    .customer-category-heading {
+        scroll-margin-top: 185px;
     }
 
     .customer-search > div {

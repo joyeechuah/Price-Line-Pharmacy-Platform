@@ -19,7 +19,6 @@ body{
     text-align: center;
 }
 
-/* Main logo matches the login and register pages. */
 .page-logo {
     display: block;
     width: 120px;

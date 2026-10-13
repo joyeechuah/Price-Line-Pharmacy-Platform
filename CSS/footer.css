@@ -1,29 +1,26 @@
-/* Shared footer for public, customer and staff pages. */
 .site-footer {
     padding: 35px 20px;
-    border-top: 4px solid #246B38;
-    background-color: #083B5E;
-    color: white;
+    background-color: #E4F2E9;
+    color: #012D76;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     line-height: normal;
     text-align: center;
 }
 
-/* Fixed spacing so the footer matches on pages that load Bootstrap. */
 .site-footer p {
     margin: 16px 0;
 }
 
 .site-footer .site-footer-brand {
     margin: 0 0 8px;
-    color: white;
+    color: #012D76;
     font-size: 22px;
     font-weight: bold;
 }
 
 .site-footer .site-footer-brand span {
-    color: #8DDD9D;
+    color: #1C9807;
 }
 
 .site-footer nav {
@@ -35,6 +32,6 @@
 }
 
 .site-footer nav a {
-    color: white;
+    color: #012D76;
 }
 
